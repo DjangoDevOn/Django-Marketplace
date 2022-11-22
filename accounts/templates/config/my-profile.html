@@ -1,0 +1,135 @@
+{% extends 'marketplace/base.html' %}
+{% load static %}
+{% block title %} Marketplace | Account Settings {% endblock title %}
+{% block content %}
+
+<main id="main" class="main">
+
+  {% if messages %}
+  <div class="alert-warning p-2 pt-4 mt-2" id="alert">
+      {% for message in messages %}
+        <p class="text-center">{{ message }}</p>
+      {% endfor %}
+  </div>
+  <script>
+    const alertBox = document.getElementById('alert')
+    function hideAlert() {
+        alertBox.classList.add('invisible')
+    }
+    setTimeout(hideAlert, 6000)
+  </script>
+  {% endif %}
+
+
+  <section class="section">
+
+
+ <div class="page-content">
+        <div class="page-header">
+          <div class="container-fluid">
+            <h2 class="h5 no-margin-bottom">Account Settings</h2>
+          </div>
+        </div>
+        <section class="no-padding-top no-padding-bottom">
+        <div class="container py-5">
+          <div class="row">
+            <div class="col-lg-4">
+                <div class="card p-5 body text-center">
+                  <img src="{{profile.imageURL}}" alt="avatar" class="rounded-circle img-fluid">
+                  <h5 class="my-3 text-dark">{{user.username|title}}</h5>
+                  <p class="text-muted mb-4">Since {{profile.created|date:"M d, Y"}}</p>
+                </div>
+
+                  <div class="row">
+                      <p class="mb-0"><b>Business Street Address</b></p>
+                      <div class="mt-2 mb-3 col-sm-9">
+                        <p class="mb-0">{{profile.business_street_address}}</p>
+                        <p>{{profile.city}}, {{profile.state}} {{profile.zip_code}}
+                      </div>
+                      {% if profile.buyer_account %}
+                      <div class="row">
+                        <div class="card p-5">
+                          <h4 class="mb-3">Your Selling Options</h4>
+                            {% for s in selling %}
+                              <p><i class="bi bi-check"></i> {{s.selling}}</p> <br>
+                            {% endfor %}
+                          <a class="btn btn-sm btn-outline-primary mt-3" href="{% url 'edit-selling' profile.pk %}"><i class="fa fa-pencil"></i> Edit</a></a></p>
+                        </div>
+                      </div>
+                      {% endif %}
+
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card p-5">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Username</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="mb-0">{{user.username|title}}</p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Email</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="mb-0">{{user.email}} <a href="{% url 'edit-email' user.id %}" class="btn btn-sm btn-outline-primary"><i class="fa fa-pencil"></i> Edit</a></p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">First Name</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="mb-0">{{profile.first_name}}</p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Last Name</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="mb-0">{{profile.last_name}}</p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Company</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="mb-0">{{user.company_name}}</p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Phone</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="mb-0">{{profile.company_phone_number}}</p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div>
+                    <a href="{% url 'edit-profile' profile.id  %}" class="mt-5 main-btn mt-3-orange">Edit Profile</a>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+
+
+</section>
+
+
+</section>
+</main><!-- End #main -->
+ 
+
+       {% endblock content %}

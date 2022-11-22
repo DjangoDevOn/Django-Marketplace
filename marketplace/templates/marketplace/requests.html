@@ -1,0 +1,95 @@
+{% extends 'marketplace/base.html' %}
+{% load static %}
+{% block title %} Marketplace | Quotes {% endblock title %}
+{% block content %}
+
+
+    <main id="main" class="main">
+             <!-- alert -->
+             {% if alert %}
+             <div class="alert alert-warning" role="alert" id="alert">
+                 {{ alert }}
+             </div>
+             <script>
+                 const alertBox = document.getElementById('alert')
+                 function hideAlert() {
+                     alertBox.classList.add('invisible')
+                 }
+                 setTimeout(hideAlert, 6000)
+             </script>
+         {% endif %}
+         <!-- end alert -->
+
+        <div class="row mb-4 mt-5">
+            <div class="col-md-6 text-center">
+                <p class="text-primary">{% if open_count %}({{ open_count }}) {% endif %} <a href="{% url 'my-open-requests-filter' %}" {% if open %} class="text-center text-dark" {% else %} class="text-center text-primary" {% endif %} >Open Requests</a></p>
+            </div>
+            <div class="col-md-6 text-center">
+                <p class="text-primary">{% if closed_count %}({{ closed_count }}) {% endif %} <a href="{% url 'my-closed-requests-filter' %}" {% if closed %} class="text-center text-dark" {% else %} class="text-center text-primary" {% endif %} >Closed Requests</a></p>
+            </div>
+            {% comment %} <div class="col-md-4 text-center">
+                <a href="{% url 'my-rejected-requests-filter' %}" {% if rejected %} class="text-center text-dark" {% else %} class="text-center text-primary" {% endif %} >Rejected</a>
+            </div> {% endcomment %}
+        </div>
+
+    
+        <div class="container-fluid">
+            <div class="card-body text-dark row justify-content-center">
+                {% if requests %}
+                    {% for request in requests %}
+                        <div class="card mb-3 col-md-6 m-5">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">{{request.title}}</h5>
+                                <p class="text-primary">Quote Cap: {{request.maximum_quotes_desired}}</p>
+                                <i><small>Need By: <b>{{request.need_by_date}}</b></small></i><br>
+                                <i><small>Quotes Recieved: <b>{{request.quotes_recieved}}</b></small></i>
+                                <!-- New Quote Indicator -->
+                                {% for quote in quotes_list %}
+                                    {% if quote.request == request %}
+                                        <p class="mt-3 text-danger"><i class="bi bi-chat-left-text"></i> New Quote</p>
+                                    {% endif %}
+                                {% endfor %}
+                                <!-- New Quote Message Indicator -->
+                                {% for message in new_messages %}
+                                    {% if message.quote_regarding.request == request %}
+                                        <p class="mt-3 text-danger"><i class="bi bi-chat-left-text"></i> New Messages</p>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div class="card-footer">
+                                <div class="row text-center">
+                                    <div class="col">
+                                        <a class="btn btn-outline-primary" href="{% url 'request-details' request.id %}">Details</a>
+                                    </div>                
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                <div class="row justify-content-center">
+                    <h4 class="text-center m-5">No Requests here...</h4>
+                    <div class="text-center">
+                        <a class="main-btn mt-2" href="{% url 'new-request' %}" class="text-primary">Create one</a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        </main><!-- End #main -->
+
+    
+    
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+    

@@ -1,0 +1,322 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+    <title>Django Marketplacet | Admin</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+  
+    <!-- Favicons -->
+    <link href="{% static 'dashboard/img/favicon.png' %}" rel="icon">
+    <link href="{% static 'dashboard/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+  
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <script src="https://use.fontawesome.com/c29b59c14e.js"></script>
+
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'dashboard/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'dashboard/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'dashboard/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'dashboard/vendor/quill/quill.snow.css' %}" rel="stylesheet">
+    <link href="{% static 'dashboard/vendor/quill/quill.bubble.css' %}" rel="stylesheet">
+    <link href="{% static 'dashboard/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+    <link href="{% static 'dashboard/vendor/simple-datatables/style.css' %}" rel="stylesheet">
+  
+    <!-- Template Main CSS File -->
+    <link href="{% static 'dashboard/css/style.css' %}" rel="stylesheet">
+  
+  </head>
+
+ 
+  <body>
+
+<!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="{% url 'admin-dash' %}" class="logo d-flex align-items-center">
+        <img src="" id="profile-photo" alt="">
+        <span class="d-none d-lg-block">Marketplace.io</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    <div class="search-bar">
+      <form class="search-form d-flex align-items-center" method="POST" action="{% url 'admin-search' %}">
+        {% csrf_token %}
+        <input type="text" name="q" placeholder="Search" title="Enter search keyword">
+        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+      </form>
+    </div><!-- End Search Bar -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li><!-- End Search Icon-->
+       
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'admin-dash' %}">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span> 
+          <span style="margin-left:4%; margin-bottom:-1%;" id="todo-count" class="badge bg-warning badge-number"></span>
+        </a>
+      </li> 
+
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'admin-users' %}">
+          <i class="bi bi-grid"></i>
+          <span>Users</span>
+          <span style="margin-left:4%; margin-bottom:-1%;" id="new-user-count" class="badge bg-primary badge-number"></span>
+        </a>
+      </li> 
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'admin-requests' %}">
+          <i class="bi bi-grid"></i>
+          <span>Requests</span>
+        </a>
+      </li> 
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'admin-quotes' %}">
+          <i class="bi bi-grid"></i>
+          <span>Quotes</span>
+        </a>
+      </li> 
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'admin-faq-posts' %}">
+          <i class="bi bi-grid"></i>
+          <span>FAQ</span>
+        </a>
+      </li> 
+
+      {% comment %} <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'admin-blog-posts' %}">
+          <i class="bi bi-grid"></i>
+          <span>Blog</span>
+        </a>
+      </li>  {% endcomment %}
+{% comment %} 
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'admin-referrals' %}">
+          <i class="bi bi-grid"></i>
+          <span>Referrals</span>  
+          <span style="margin-left:4%; margin-bottom:-1%;" id="referral-count" class="badge bg-primary badge-number"></span>
+        </a>
+        </a>
+      </li>  {% endcomment %}
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'admin-leads' %}">
+          <i class="bi bi-grid"></i>
+          <span>Lead Gen</span>
+        </a>
+      </li> 
+ 
+
+    </ul>
+
+  </aside><!-- End Sidebar-->
+
+
+
+   
+
+    {% block content %} {% endblock %}
+
+
+
+       
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+      <div class="copyright">
+      </div>
+      <div class="credits">
+      </div>
+    </footer><!-- End Footer -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="{% static 'dashboard/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'dashboard/vendor/apexcharts/apexcharts.min.js' %}"></script>
+    <script src="{% static 'dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'dashboard/vendor/quill/quill.min.js' %}"></script>
+    <script src="{% static 'dashboard/vendor/tinymce/tinymce.min.js' %}"></script>
+
+
+    <!-- Template Main JS File -->
+    <script src="{% static 'dashboard/js/main.js' %}"></script>
+
+
+    
+    <script>
+      // get referral notification value in sidebar
+      const ref_bubble = document.getElementById('referral-count')
+      const inbox_bubble = document.getElementById('inbox-count')
+      const todo_bubble = document.getElementById('todo-count')
+      const new_user_count_bubble = document.getElementById('new-user-count')
+
+
+      // referral count
+       $.ajax({
+          type: 'GET',
+          url: "/adminarea/ref-count/",
+          success: function(response){
+              const data = response.referral_count
+              if(data > 0){
+                ref_bubble.innerHTML += data
+              }
+              },
+          error: function(error){
+              console.log('error', error)
+          }
+      })  
+
+
+      // inbox count
+      $.ajax({
+          type: 'GET',
+          url: "/adminarea/inbox-count/",
+          success: function(response){
+              const data = response.inbox_count
+              if(data > 0){
+                inbox_bubble.innerHTML += data
+              }
+              },
+          error: function(error){
+              console.log('error', error)
+          }
+      })
+
+      // new user count
+      $.ajax({
+        type: 'GET',
+        url: "/adminarea/new-user-count/",
+        success: function(response){
+            const data = response.new_user_count
+            if(data > 0){
+              new_user_count_bubble.innerHTML += data
+            }
+            },
+        error: function(error){
+            console.log('error', error)
+        }
+    })
+
+
+      // todo count
+      $.ajax({
+        type: 'GET',
+        url: "/adminarea/todo-count/",
+        success: function(response){
+            const data = response.todo_count
+            if(data > 0){
+              todo_bubble.innerHTML += data
+            }
+            },
+        error: function(error){
+            console.log('error', error)
+        }
+    })
+
+
+
+{% comment %} 
+
+      $.ajax({
+        type: 'GET',
+        url: "/accounts/unread-general-inbox/",
+        success: function(response){
+            const data = response.unread_inbox
+            data.forEach(el => {
+                unread_inbox.innerHTML += `
+                <li class="message-item">
+                  <h4>General Message <a href="/social/message-read/${el.id}/"> <i class="fa fa-times-circle"></i> </a> </h4>
+                  <a href="/social/messages">
+                    <img src="/media/${el.photo}" alt="" class="rounded-circle">
+                    <div>
+                      <h4>${el.sender}</h4>
+                      <p>${el.created_at}</p>
+                    </div>
+                  </a>
+                </li>
+                `
+            });
+        },
+        error: function(error){
+            console.log('error', error)
+        }
+    })
+  
+    
+    
+    
+    $.ajax({
+    type: 'GET',
+    url: "/accounts/unread-support-inbox/",
+    success: function(response){
+        const data = response.unread_inbox
+        data.forEach(el => {
+            unread_support_inbox.innerHTML += `
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <h4>Support Response <a href="/support/ticket-read/${el.id}/"> <i class="fa fa-times-circle"></i> </a> </h4>
+                <img src="/media/avatar1.jpg" alt="" class="rounded-circle">
+                <div>
+                  <a href="/accounts/ticket/${el.ticket_id}/">
+                    <p>${el.msg_content}</p>
+                    <p>${el.created_at}</p>
+                  </a>
+                </div>
+            </li>
+            `
+        });
+    },
+    error: function(error){
+        console.log('error', error)
+    }
+}) {% endcomment %}
+
+
+
+    </script>
+
+
+
+
+
+  </body>
+</html>
+
+
+
+ 
+          
+         
+      

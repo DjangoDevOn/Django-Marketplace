@@ -1,0 +1,70 @@
+{% extends 'adminarea/base.html' %}
+{% load static %}
+{% block title %} Marketplace | Ticket Response {% endblock title %}
+{% block content %}
+
+<main id="main" class="main">
+  <section class="section">
+
+
+ <div class="page-content">
+    <div class="page-header">
+        <div class="container-fluid">
+        <h2 class="h5 no-margin-bottom">Ticket Response</h2>
+        </div>
+    </div>
+
+{% if created %}
+<div
+  class="alert alert-success text-center"
+  role="alert"
+  style="margin-bottom: -10%"
+>
+  Your ticket response was sent. Keep it up!
+</div>
+{% endif %}
+
+<section class="padding-small bg-gray" id="message">
+  <div class="container" data-aos="fade-up">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="text-center mb-3">Respond to a Support Ticket</h2>
+        <form
+          autofocus
+          style="background-color: #fff; padding: 8%"
+          action="{% url 'create-response' ticket.id %}"
+          method="POST"
+          role="form"
+          class="custom-form form"
+        >
+          {% csrf_token %}
+          <div class="form-row">
+          <div class="form-group">
+            <textarea
+              class="form-control"
+              name="msg_content"
+              rows="6"
+              data-rule="required"
+              data-msg="Write your response here"
+              placeholder="Write your response here"
+            ></textarea>
+          </div>
+          <div class="text-center">
+            <button type="submit" class="main-btn mt-3">
+              Submit Response
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+</div>
+
+</section>
+</main><!-- End #main -->
+ 
+
+{% endblock content %}

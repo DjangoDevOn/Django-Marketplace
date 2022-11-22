@@ -1,0 +1,60 @@
+{% extends 'marketplace/base.html' %}
+{% load static %}
+{% block title %} Marketplace | Edit Request {% endblock title %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+
+<main id="main" class="main">
+        <div class="container-fluid mt-5">
+          <div class="row justify-content-center">
+            <div class="col-lg-6">
+              <div class="card mb-3">
+
+                <div class="card-body">
+
+                  <div class="pt-4 pb-2">
+                    <h5 class="card-title text-center pb-0 fs-4">Edit Your Request</h5>
+                  </div>
+
+                  <form method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                      <div class="col">
+                        <label for="title">Post title</label> 
+                          <input id="title" type="text" class="form-control" name="title" value="{{editing_request.title}}" required autofocus/>
+                      </div>
+                      <div class="col">
+                        <label for="need_by_date">Need by date</label> 
+                        <input id="need_by_date" type="date" class="form-control" name="need_by_date" value="{{editing_request.need_by_date|date:'Y-m-d'}}" required/>
+                      </div> <!--https://stackoverflow.com/questions/38850951/python-django-date-field-in-html-input-tag-->
+                    </div>
+                    <div class="row mt-4">
+                      <div class="col">
+                          <label for="maximum_quotes_desired">Highest number of quotes you wish to recieve</label> 
+                          <input id="maximum_quotes_desired" type="number" class="form-control" name="maximum_quotes_desired" value="{{editing_request.maximum_quotes_desired}}" required/>
+                      </div>
+                      <div class="col">
+                        <p class="mt-1" for="need_by_date">Description</p>
+                        <textarea class="form-control" name="description" rows="3" required>{{editing_request.description}}</textarea>
+                      </div>
+                    </div>
+                    <div class="text-center">
+                      <button type="submit" class="main-btn mt-3">Save Request</button>
+                    </div>
+                </form>
+          
+                </div>
+            </div>
+
+          </div>
+        </div>
+
+  </div>
+</main><!-- End #main -->
+   
+ 
+
+{% endblock content %}
+
+ 

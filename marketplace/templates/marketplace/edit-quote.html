@@ -1,0 +1,40 @@
+{% extends 'marketplace/base.html' %}
+{% load static %}
+{% block title %} Marketplace | Edit Quote {% endblock title %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+ 
+
+    <main id="main" class="main">
+        <section class="section">
+
+            <div class="container-fluid">
+                <h4 class="text-center mt-2 mb-3">Update Your Quote</h4>
+                <form method="POST">
+                    <div class="row justify-content-center text-center">
+                        <div class="col-md-6 card p-5">
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                        </div>
+                        <div class="text-center">
+                            <button class="main-btn" type="submit">Update</button>
+                        </div>
+                    </div>
+                  </form>
+  
+                </div>
+        </section>
+      </main><!-- End #main -->
+
+    
+ 
+    
+    
+
+      {% endblock content %}
+
+                
+      
+      
+      

@@ -1,0 +1,26 @@
+{% extends 'marketplace/base.html' %}
+{% load static %}
+{% block title %} Marketplace | Delete Message {% endblock title %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+
+    <main id="main" class="main">
+        <section class="section">
+          
+          <div class="row">
+            <div class="col-md-6">
+            <form action="" method="POST" class="text-center card p-5">
+                {% csrf_token %}
+                <p>Are you sure you want to delete the message: <br> <b> "{{ object }}"?</b></p>
+                <input class="main-btn" type="submit" value="Confirm" />
+            </form>
+          </div>
+        </div>
+             
+        </section>
+      </main><!-- End #main -->
+
+     
+
+      {% endblock content %}

@@ -1,0 +1,85 @@
+{% extends 'adminarea/base.html' %}
+{% load static %}
+{% block title %} Marketplace | Admin Dashboard {% endblock title %}
+{% block content %}
+
+<main id="main" class="main">
+  <section class="section">
+    
+    <div class="card p-5">
+      <div class="row">
+        <div class="col-md-6">
+          <h1>Dashboard</h1>
+        </div>
+        {% if todo_count %}
+        <div class="col-md-6 mt-2">
+          <h3>🔔 Things to do: <b>{{todo_count}}</b></h3>
+        </div>
+        {% else %}
+        <div class="col-md-6 mt-2">
+          <h3>🧹 You're all caught up!</h3>
+        </div>
+        {% endif %}
+        </div>
+    </div>
+
+      
+            
+    <!-- 
+      <div class="col-md-6 text-center">
+      {% if referral_count  %}
+      <h4>Users Awaiting Referral Payout: <b>{{referral_count}}</b></h4>
+          <a class="btn btn-outline-primary" href="{% url 'admin-referrals' %}">Pay Users</a>
+      </div>
+      {% endif %}
+      {% if unread_ticket_inbox %}
+      <div class="row mt-5 card p-5">
+        <div class="col-md-6">
+        <h4> Unread Tickets: <b>{{unread_ticket_count}}</b></h4>
+          {% for ticket in unread_ticket_inbox %}
+            <div class="row">
+              <p>Ticket Number: {{ ticket.id }} | {{ ticket.subject }}</p>
+              <div class="col">
+                <a href="{% url 'ticket-details' ticket.id %}" class="btn btn-sm btn-outline-primary">See Ticket</a>
+              </div>
+            </div>
+          {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    {% if unread_ticket_response_inbox %}
+      <div class="row mt-5 card p-5">
+        <div class="col-md-6">
+        <h4> New Ticket Responses: <b>{{new_response_count}}</b></h4>
+          {% for ticket in unread_ticket_response_inbox %}
+          <div class="row">
+            <p>Responding to Ticket Number: {{ ticket.id }} | {{ ticket.ticket.subject }}</p>
+            <div class="col">
+              <a href="{% url 'ticket-details' ticket.ticket.id %}" class="btn btn-sm btn-outline-primary">See Ticket</a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %} -->
+
+    </section>
+        <div class="row text-center">
+            <div class="col-md-4">
+              <h4>Total Buyers: <b class="text-primary">{{ buyer_count }}</b></h4>
+            </div>
+            <div class="col-md-4">
+              <h4>Total Sellers: <b class="text-primary">{{ seller_count }}</b></h4>
+            </div>
+            <div class="col-md-4">
+              <h4>Total Users: <b class="text-primary">{{ user_count }}</b></h4>
+            </div>
+        </div>
+    </section>
+
+
+  </section>
+</main><!-- End #main -->
+ 
+{% endblock content %}

@@ -1,0 +1,36 @@
+{% extends 'adminarea/base.html' %}
+{% load static %}
+{% block title %} Marketplace | Edit Faq {% endblock title %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<main id="main" class="main">
+    <section class="section">
+  
+
+<div class="page-content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <h2 class="h5 no-margin-bottom">Edit Faq</h2>
+            <a href="{% url 'admin-new-faq-cat' %}" style="margin-top:-3%; margin-bottom:6%;" class="pull-right btn-sm main-btn mt-3-inverted">+ New Category</a>
+        </div>
+    </div>
+
+    <section>
+        <div class="block mt-5">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.media }}
+                {{ form|crispy }}
+                <button style="margin-right:8%;" class="main-btn mt-3">Edit Faq</button>
+            </form>
+        </div>
+    </section>
+</div>
+
+    
+</section>
+</main><!-- End #main -->
+ 
+
+{% endblock content %}

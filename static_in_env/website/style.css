@@ -1,0 +1,420 @@
+/* Import font */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Quicksand&display=swap');
+
+/* Base styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    /* Background Color */
+
+    --black-L: #343434;
+    --black: #000;
+    --bg-light: #fff;
+    --bg-gray:#F5F4F4;
+
+    /* Text Color */
+    --text-black: #1f1f1f;
+    --dark-blue: #004faf;
+    --btn-blue: #5e87cd;
+    --text-gray: #343433;
+    --text-white: #fff;
+
+    /* Fonts */
+    --primary-font:  'Inter', sans-serif;
+    --secondary-font:  'Quicksand', sans-serif;
+    --font-size: 18px ;
+    --font-size-md: 26px;
+    --font-size-lg: 52px;
+}
+
+body {
+    font-family: var(--primary-font);
+   
+}
+a{
+    text-decoration: none;
+}
+
+/* 1 Custom CSS */ 
+
+.card{
+    padding: 20px;
+     box-shadow: 0 4px 20px 0 rgba(94, 163, 205, 0.25), 0 6px 20px 0 rgba(94, 163, 205, 0.25);
+     border: none;
+}
+
+.card:hover{
+        border: 1px solid var(--bg-gray);
+}
+  
+.main-btn{
+    display:inline-block;
+    border-radius: 10px;
+    transition:.2s;
+    background-color:var(--btn-blue);
+    padding-top: 2.5%;
+    color:var(--bg-light);
+    font-weight: 300;
+    font-family: var(--primary-font);
+    font-size: var(--font-size);
+    text-decoration: none;
+    border: none;
+    width: 163px;
+    height: 50px;
+    margin-right: 34px;
+    
+}
+
+.main-btn:hover{
+    color: #5EA2CD;
+    border: 1px solid;
+    background-color: var(--bg-light);
+}
+
+.navbar-expand-lg .navbar-nav .nav-link{
+    margin: 0px;
+    padding: 0px;
+}
+.screen-sm-hidden{
+   display: block;
+}
+
+h1{
+    font-size: var(--font-size-lg);
+    font-family: var(--secondary-font);
+    font-weight: 600;
+    color:var(--dark-blue);
+}
+h5{
+    font-size: var(--font-size-md);
+    font-family: var(--secondary-font);
+    font-weight: 600;
+    color:var(--black-L);
+    letter-spacing: 0;
+}
+p{
+    font-size: var(--font-size);
+    color: var(--black-L);
+}
+/*navabar css*/
+nav{
+        border-bottom: 1px solid #9CABB4;
+
+
+}
+.welcome{
+    padding: 70px 0px;
+    background-image: url(./images/head/Rectangle14.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+/*.sideimg{
+    width: 708px;
+}*/
+.welcomepost p{
+    text-align: ;
+}
+.loginbtn{
+    color: var(--btn-blue);
+    border: 1px solid;
+    background-color:var(--bg-light);
+
+}
+.loginbtn:hover{
+    color: var(--bg-light);
+    border: 1px solid;
+    background-color:var(--btn-blue);
+}
+
+.tryNowWelcomebtn{
+    width: 255px;
+    margin-top: 30px;
+    padding-bottom: 2%;
+}
+
+
+/*Welcome to Django Marketplace */
+.blackH1{
+    font-size: 44px;
+    color: var(--text-gray);
+
+
+
+
+.useOfMarketplace{
+    background-color: var(--bg-gray);
+    padding-bottom: 55px;
+}
+
+.useMarketplacepost a span{
+    margin-right: 20px;
+    color: var(--btn-blue);
+}
+.useMarketplacepost a{
+    margin-top: 30px;
+}
+
+
+
+/*Work of Django Marketplace */
+
+.cardsRow{
+    margin: 74px 0px;
+}
+.workOfMarketplacebtn{
+    width: 255px;
+    height: 60px;
+    padding-bottom: 5%;
+}
+.workofMarketplace{
+    padding-top: 65px;
+    background: url('./images/howMarketplaceWorks/bg.png');
+    background-size: 100% 300px;
+    background-repeat: no-repeat;
+    background-position: bottom;
+}
+
+
+/*Activity leads*/
+
+.activityLeads{
+    background: url('./images/ActivityLeads/bg.png');
+ 
+    background-size: cover;
+    background-position: center center;
+    padding:75px 0px 0px 0px;
+}
+.activityLeads h1{
+    color: var(--bg-light);
+}
+
+.owl-theme .owl-dots, .owl-theme .owl-nav{
+    text-align: start !important;
+}
+.carousel-control-prev-icon{
+    left:-60px;
+    bottom: 350px;
+    position: absolute;
+}
+.carousel-control-next-icon{
+        right: -60px;
+        bottom: 350px;
+        position: absolute;
+}
+.activityLeads .card{
+ box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.12), 0 6px 10px 0 rgba(0, 0, 0, 0.12);
+}
+.owl-carousel .owl-stage-outer {
+    padding: 10px 0px;
+}
+.owl-dots button{
+    border-radius: 50%;
+    width: 14px !important;
+    height: 14px !important;
+    margin-right: 4px;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.12), 0 6px 10px 0 rgba(0, 0, 0, 0.12);
+}
+.activeleadsbtn{
+    color: var(--btn-blue);
+    border: 1px solid;
+    width: 255px;
+    background-color:var(--bg-light);
+    padding-bottom: 5%;
+}
+.activeleadsbtn:hover{
+    transition: 0.2s;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.12), 0 6px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+
+
+
+
+
+/***************contact************/
+.contact{
+    padding: 120px 0px;
+}
+.contact .card{
+    padding: 0px;
+}
+
+.contactCard{
+    padding: 50px 50px 0px 50px;
+}
+.form-control{
+    border-color: var(--black-L);
+    border-radius: 10px;
+}
+
+
+
+/*******Footer********/
+
+footer{
+    background-color: var(--btn-blue);
+    padding: 40px 0px;
+    color: var(--bg-light);
+}
+footer h5, footer p, footer a{
+        color: var(--text-white);
+}
+.info p{
+    margin-top: 25px;
+}
+.email i{
+        color: var(--bg-light);
+          font-size: 30px;
+}
+
+
+.email a{
+    padding-left: 15px;
+}
+
+.arrowright i{
+    color: var(--black);
+}
+
+footer .input-group-text img{
+    border-left: 2px solid var(--black-L);
+    padding-left: 10px;
+}
+
+footer .form-control{
+    border: none;
+    border-radius: 10px;
+
+}   
+
+footer .input-group-text{
+
+    background-color: var(--bg-light);
+    border-radius: 10px;
+
+  
+}
+
+footer .input-group {
+    margin-top: 40px;
+}
+
+footer .input-group-text img{
+    border-left: 2px solid var(--black-L);
+    padding-left: 10px;
+}
+
+
+.md-logo-visible{
+    display: none;
+}
+
+/*media queries /*/
+
+@media screen and (max-width:991px){
+        h1{
+    font-size: 30px;
+}
+.tryNowWelcomebtn{
+    margin-top: 10px;
+}
+.justify-content-between {
+    justify-content: space-around !important;
+}
+.welcome{
+    padding: 50px 0px;
+}
+.md-logo-hidden{
+    display: none;
+}
+.md-logo-visible{
+    display: block;
+}
+.info p{
+    margin-top: 0px;
+}
+}
+
+
+@media screen and (max-width:767px){
+    .welcome{
+  
+    background-image: none;
+   
+}
+.screen-sm-hidden{
+   display: none;
+}
+.newletter{
+    margin-top: 30px;
+}
+h1{
+    font-size: 52px !important;
+}
+
+.loginbtn{
+    border: none;
+    background: none;
+    color: var(--btn-blue);
+    font-weight: 600;
+    width: 100%;
+}
+
+
+.loginbtn:hover{
+    border:none ;
+
+    background:none;
+    width: 0px;
+    color: var(--btn-blue);
+    width: 100%;
+}
+.welcome{
+    padding: 10px 0px !important;
+}
+.welcomepost{
+    text-align: center;
+}
+.img{
+
+}
+/*nav .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl{
+        padding: 0px;
+}
+.navbar-brand{
+    margin: 0px;
+}*/
+
+
+}
+
+@media screen and (max-width:410px){
+.navbar>.container, .navbar>.container-fluid, .navbar>.container-lg, .navbar>.container-md, .navbar>.container-sm, .navbar>.container-xl, .navbar>.container-xxl{
+    flex-wrap: initial;
+}
+ h1{
+    font-size: 30px !important;
+}
+p{
+    font-size: 14px;
+}
+.tryNowWelcomebtn{
+    width: 150px;
+    height: 40px;
+    margin-top: 30px;
+}
+}
+
+@media screen and (max-width:575px){
+       .padding-for-xsm-screen{
+        padding-top: 30px;
+       }
+
+}
+
+

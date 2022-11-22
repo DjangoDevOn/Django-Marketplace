@@ -1,0 +1,50 @@
+{% extends 'adminarea/base.html' %}
+{% load static %}
+{% block title %} Marketplace | Admin Referrals {% endblock title %}
+{% block content %}
+
+<main id="main" class="main">
+    <section class="section">
+  
+
+ <div class="page-content">
+    <div class="page-header">
+        <div class="container-fluid">
+        <h2 class="h5 no-margin-bottom">Admin Referrals</h2>
+        </div>
+    </div>
+
+    <section>
+
+       {% if user_recs %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                <th scope="col">User</th>
+                <th>Payout</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for rec in user_recs %}
+                <tr>
+                    <td>{{ rec|title }} </td>
+                    <td><a href="{% url 'admin-referral-payout' %}" class="main-btn mt-3 btn-sm">Payout</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <h3 class="text-orange mt-5 text-center"><i>Nice!</i> You're all caught up 🤓</h3>
+        {% endif %}
+
+    </section>
+
+</div>
+
+
+    
+</section>
+</main><!-- End #main -->
+ 
+
+{% endblock content %}

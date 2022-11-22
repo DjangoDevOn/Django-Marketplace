@@ -1,0 +1,48 @@
+{% extends 'adminarea/base.html' %}
+{% load static %}
+{% block title %} Marketplace | Quote Details {% endblock title %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+ 
+
+    <main id="main" class="main">
+        <section class="section">
+
+            <div class="page-header">
+                <div class="container-fluid">
+                    <h2 class="h5 no-margin-bottom">Quote Details</h2>
+                </div>
+            </div>
+    
+            
+            <div class="card p-5">
+                <hr>
+                <h4>Title: {{ quote.title }}</h4>
+                <!--<a href="{% url 'admin-request' quote.request.id %}"><strong>Request: </strong>{{ quote.request.title }}</a> -->
+                <p><strong>Author: </strong>{{ quote.user.username }}</p> 
+                <p><strong>Description: </strong> {{ quote.description }}</p>
+                <p><strong>Price: </strong> ${{ quote.price }}</p>
+                <p><strong>Expiry Date: </strong> {{ quote.expiry_date }}</p>
+                <p><strong>Original Request: </strong><a href="{% url 'admin-request' quote.request.id %}">{{quote.request.title}}</a></p>
+                <p><strong>{% if quote.rejected %}Status: </strong><span class="text-danger">Rejected</span>{% elif quote.accepted %}Status: <span class="text-success">Accepted</span>{% endif %}</p>
+                <div>
+                    <a href="{% url 'admin-quote-update' quote.id %}" class="btn btn-outline-primary">Update</a>
+                    <a href="{% url 'admin-quote-delete' quote.id %}" class="btn btn-outline-danger">Delete</a>
+                </div>
+            </div>
+  
+        </section>
+      </main><!-- End #main -->
+
+    
+ 
+    
+    
+
+      {% endblock content %}
+
+                
+      
+      
+      

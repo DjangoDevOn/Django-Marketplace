@@ -1,0 +1,53 @@
+{% extends 'marketplace/base.html' %}
+{% load static %}
+{% block title %} Marketplace | Hidden Quotes {% endblock title %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+    <style>
+    .not-visible{
+        display:none;
+    }
+    </style>
+
+
+    <main id="main" class="main">
+
+        <!-- Post created alert -->
+        <div id="alert-box"></div>
+        <section class="section">
+          <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h3 class="text-center mb-4 mt-5">Quotes You've Hidden for <br><b>"{{req.title}}"</b></h3>
+    
+                    {% for quote in quotes %}
+                    <div class="card mb-3 col-md-10 m-5">
+                        <div class="card-body text-center p-5">
+                            <h2 class="card-title"><b>{{quote.request.title}}</b></h2>
+                            <p class="text-dark">Description: <br>
+                                <b class="text-primary">{{quote.description}}</b></p>
+                            <i><small>Price: <b>${{quote.price}}</b></small></i>
+                            <i><small>Request Author: <b>{{quote.request.author.useralias}}</b></small></i>
+                            <br>
+                            <i><small>Expires On: <b>{{quote.expiry_date}}</b></small></i>
+                            <p class="card-title">Request: <b><a href="{% url 'request-details' quote.request.id %}">{{quote.request.title}}</a></b></p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row text-center">
+                                <div class="col">
+                                    <a class="btn btn-outline-primary" href="{% url 'quote-details' quote.id %}">Details</a>
+                                </div>                
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+        
+                </div>
+              </div>
+          </div>
+        </section>
+      
+      </main><!-- End #main -->
+ 
+{% endblock content %}

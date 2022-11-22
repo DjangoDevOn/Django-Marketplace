@@ -1,0 +1,91 @@
+{% extends 'adminarea/base.html' %}
+{% load static %}
+{% block title %} Marketplace | Admin Support {% endblock title %}
+{% block content %}
+
+<main id="main" class="main">
+  <section class="section">
+
+    <div class="row mb-4">
+      <div class="col-md-12 text-center">
+        <a href="{% url 'admin-support' %}" class="btn btn-outline-primary mt-3 btn-sm">Open Tickets</a>
+        <a href="{% url 'paused' %}" class="btn btn-outline-primary mt-3 btn-sm">Paused Tickets</a>
+        <a href="{% url 'closed' %}" class="btn btn-outline-primary mt-3 btn-sm">Closed Tickets</a>
+      </div>
+    </div>
+
+      <div class="col-md-7 order-md-1" style="margin-left:18%;">
+          <div class="card mb-4 p-2" style="margin-left:10%;">
+            <div class="card-header pt-4 pb-3">
+             <h3><b class="text-dark">{{ ticket.user.username|title }} </small></b> {% if ticket.admin_read %}
+              {% else %} 🔔 {% endif %}</h3>
+             
+              <p class="text-dark mt-3"><strong>Status:</strong> {% if ticket.status == 'OPEN' %}<span class="text-success"><b>OPEN</b></span>{% else %}<span class="text-muted"><b>{{ ticket.status }}</b></span>{% endif %} <a href="{% url 'update-ticket-status' ticket.id %}"><i class="text-primary fa fa-pencil"></i></a></p>
+              <p>Ticket ID: {{ticket.id}}</p>
+              <div class="row">
+                <div class="col-md-12 text-center">
+                  <a class="main-btn mt-3 mb-3 btn-sm" href="{% url 'create-response' ticket.id %}">Respond to User</a>
+                </div>
+             </div>
+            </div>
+
+            <div class="card-body p-5" style="background-color:#f6f9ff;">
+              <div class="row">
+                <h4 class="text-center mb-5">Original Ticket</h4>
+                <div class="col text-dark">
+                  <p><strong>Name:</strong> {{ ticket.user.username }}</p>
+                  <p><strong>Ticket Subject:</strong> <br>{{ ticket.subject }}</p>
+                  <p><strong>Ticket Body:</strong> <br>{{ ticket.description }}</p>
+                  <p><strong>Time Created:</strong> {{ ticket.created_at }}</p>
+                </div>
+              </div>
+
+
+
+              <div class='mt-3'>
+              <br>
+              <hr>
+                <h4 class="text-center mb-4 mt-5 text-dark"> Responses </h4>
+                {% for response in responses %}
+                  {% if response.ticket == ticket %}
+                      {% if response.sender == user %}
+                      {% else %}
+                        {% if response.user_read == False%}
+                        <div>
+                          <a href="{% url 'response-read' response.id %}" class="main-btn btn-sm text-right"><i class="fa fa-check"></i> Mark as Read</a>
+                        </div>
+                      {% endif %}
+                      {% endif %}
+                      <br>
+                      {% if response.sender == user %}
+                      <b>Agent Said:</b>
+                      {% else %}
+                      <b>User Said:</b>
+                      {% endif %}
+                      <br><br>
+                      <b class="text-muted">Message:</b> {{response.msg_content}}
+                      <br>
+                      <b class="text-muted">Day/Time:</b> {{response.created_at}}
+                    <hr>
+                  {% endif %}
+                {% endfor %}
+                </div>
+
+
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+ 
+
+</section>
+</main><!-- End #main -->
+ 
+
+
+
+{% endblock content %}

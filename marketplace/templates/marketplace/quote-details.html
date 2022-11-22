@@ -1,0 +1,183 @@
+{% extends 'marketplace/base.html' %}
+{% load static %}
+{% block title %} Marketplace | Request Details {% endblock title %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+ 
+
+    <main id="main" class="main">
+
+    
+        <section class="section">
+            <div class="card p-5">
+                <!--allow editing of the quote by the author if it's not rejected/accepted-->
+                {% if quote_details.author == request.user %} <!--hide this from the quote author-->
+                {% if quote_details.accepted %}
+                {% else %} 
+                    <div class="text-center mb-4 mt-4">
+                        <a class="btn btn-outline-primary" href="{% url 'edit-quote' quote_details.id %}"><i class="fa fa-pencil"></i> Edit Quote</a>
+                    </div>
+                {% endif %}
+ 
+                {% else %}
+                {% comment %} <div class="p-5">
+                    <a class="btn btn-outline-primary" href="http://127.0.0.1:8000/social/request-details/{{quote_details.request.id}}">Back To Request<a>
+                </div> {% endcomment %}
+                {% endif %}
+                <div class="card-body">
+                    <div class="row mb-4 text-center">
+                        {% if quote_details.rejected == True %}<p class="mt-2 text-danger"><i>* Rejected</i></p>{% endif %}
+                        <h1>{{quote_details.title}}</h1>
+                        <h3>{{quote_details.description}}</h3>
+                        <p>Request: <b>{{quote_details.request.title }}</b> <br><br> <a href="{% url 'request-details' quote_details.request.id %}" class="mt-5 main-btn">Request Details</a></p>
+                    </div>
+                    <div class="row p-5" style="background-color:#f0f3fb;">
+                        <div class="col">
+                            <p>Quote Sent: <b>{{quote_details.created|date:"M d, Y" }}</b></p>
+                            <p>Quote Expires: <b>{{quote_details.expiry_date|date:"M d, Y" }}</b></p>
+                            <p>Price Offered: <b>${{quote_details.price}}</b></p>
+                            <p>Request Author: <b>{{quote_details.request.author.useralias}}</b></p>
+                        </div>
+                        {% if quote_details.user == request.user %} <!--hide this from the quote author-->
+                        {% else %}
+                        <div class="col">
+                            <p>From User: <b>{{user.useralias}}</b></p>
+                            <p>Company: <b>{{user.company_name}}</b></p>
+                            <p>State: <b>{{profile.state}}</b></p>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                        {% if quote_details.attachment %}
+                            {{quote_details.attachment}} <br>
+                        {% endif %}
+                    <div class="mt-3 row">
+                        {% for attachment in attachments %}
+                            <div class="col-md-3 mt-3">
+                                <a href="http://127.0.0.1:8000/media/{{attachment.attachment}}" target="_blank"><img style="box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1); width:115px; height:115px;" src="/media/{{attachment.attachment}}" /> <br></a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% if user_is_buyer %}
+                    {% if quote_accepted %}
+                    {% else %}
+                        <div class="row text-center">
+                            <div class="col-md-6">
+                                {% if quote_details.rejected %}
+                                {% else %}
+                                <form method="POST" action="{% url 'accept-quote' %}">
+                                    {% csrf_token %}
+                                    <input type="text" name="quote_id" value="{{quote_details.id}}" style="display:none;">
+                                    <button class="btn btn-outline-primary" type="submit">Accept Quote</button>
+                                </form>
+                            </div>
+                            <div class="col-md-6">
+                                <form method="POST" action="{% url 'reject-quote' %}">
+                                    {% csrf_token %}
+                                    <input type="text" name="quote_id" value="{{quote_details.id}}" style="display:none;">
+                                    <button class="btn btn-outline-primary" type="submit">Reject Quote</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </section>
+
+        {% if messages %}
+        <section class="section-fluid">
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <h2 class="mb-4 text-center">Quote Messages</h2>
+                        <div class="card p-5">
+                            {% for message in messages %} <!-- for each message check the sender/reciever -->
+
+                            {% if message.reciever == user %} <!--is the message for the logged in user? -->
+                                {% if message.sender == quote_details.user %} <!-- is the message from the user in the user list?-->
+                                    <p>{{quote_details.author.useralias|title}}: <b>{{message.msg_content}}</b><span class="text-muted font-weight-light pull-right">{{message.created_at}} </span></p><br>
+                                {% else %}  <!--the else here is because it didn't show up for the sellers for some reason! -->
+                                    <p>{{quote_details.request.author.useralias|title}}: <b>{{message.msg_content}}</b><span class="text-muted font-weight-light pull-right">{{message.created_at}} </span></p><br>
+                                {% endif %}
+                            {% endif %}
+
+                            {% if message.sender == user %} <!--is the message sent from the logged in user? -->
+                                {% if message.reciever == quote_details.user %} <!-- is the message sent to the user in the user list?-->
+                                    <p>You: <b>{{message.msg_content}}</b><span class="text-muted font-weight-light pull-right">{{message.created_at}} </span><a href="{% url 'edit-message' message.id %}"><i class="edit-msg text-primary bi bi-gear"></i></a><a href="{% url 'delete-message' message.id %}"><i class="edit-msg text-muted bi bi-trash"></i></a></p><br>
+                                {% else %} <!--the else here is because it didn't show up for the sellers for some reason! -->
+                                    <p>You: <b>{{message.msg_content}}</b><span class="text-muted font-weight-light pull-right">{{message.created_at}} </span><a href="{% url 'edit-message' message.id %}"><i class="edit-msg text-primary bi bi-gear"></i></a><a href="{% url 'delete-message' message.id %}"><i class="edit-msg text-muted bi bi-trash"></i></a></p><br>
+                                {% endif %}
+                            {% endif %}
+
+                            {% endfor %}
+                        </div>
+
+                        <div class="text-center mb-5">
+                            <form action="" method="POST">
+                                {% csrf_token %}
+                                <div class="row justify-content-center">
+                                    <div class="col-md-6">
+                                        <textarea class="form-control" name="message" rows="2"></textarea>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="submit" class="main-btn mt-3">Send</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+
+                </div>
+               
+
+            </div>
+
+        </section>
+        {% else %}
+        <section class="section-fluid">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <h2 class="mb-4 text-center">Quote Messages</h2>
+                        <div class="card p-5">
+                            <h4>No messages yet</h4>
+                        </div>
+
+                        <div class="text-center mb-5">
+                            <form action="" method="POST">
+                                {% csrf_token %}
+                                <div class="row justify-content-center">
+                                    <div class="col-md-6">
+                                        <textarea class="form-control" name="message" rows="2"></textarea>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="submit" class="main-btn mt-3">Send</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+
+                </div>
+               
+
+            </div>
+
+        </section>
+        {% endif %}
+ 
+      
+      </main><!-- End #main -->
+
+   
+ 
+
+{% endblock content %}
+
+
+  
+   
+
+
+                         

@@ -1,0 +1,67 @@
+{% extends 'adminarea/base.html' %}
+{% load static %}
+{% block title %} Marketplace | Request Details {% endblock title %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+ 
+
+    <main id="main" class="main">
+        <section class="section">
+
+            <div class="page-header">
+                <div class="container-fluid">
+                    <h2 class="h5 no-margin-bottom">Request Details</h2>
+                </div>
+            </div>
+    
+            
+            <div class="card p-5">
+                <hr>
+                <h4>Title: {{ buyer_request.title }}</h4>
+                <p><strong>Author: </strong>{{ buyer_request.author.user.username }} - {{buyer_request.author.company_name}}</p> 
+                <p><strong>Description: </strong> {{ buyer_request.description }}</p>
+                <p><strong>Need by Date: </strong> {{ buyer_request.need_by_date }}</p>
+                <p><strong>Max Quotes Desired: </strong> {{ buyer_request.maximum_quotes_desired }}</p>
+                <p><strong>Quote Cap Reached: </strong> {{ buyer_request.quote_cap_reached }}</p>
+                <p><strong>Last Updated: </strong> {{ buyer_request.updated|date:"M d, Y"  }}</p>
+                <p><strong>In Contract: </strong> {{ buyer_request.in_contract }}</p>
+                <p><strong>Saved By: </strong> {{ buyer_request.liked.all|join:", " }}</p>
+                <div>
+                    <a href="{% url 'admin-request-update' buyer_request.id %}" class="btn btn-outline-primary">Update</a>
+                    <a href="{% url 'admin-request-delete' buyer_request.id %}" class="btn btn-outline-danger">Delete</a>
+                </div>
+            </div>
+
+            <div class="card p-5" style="margin-top:30px">
+                {% if quotes %}<h2>Quotes For This Request</h2>{% else %}*<b>No Quotes for this Request</b>{% endif %}
+                {% for quote in quotes %}
+                    <hr>
+                    {% if quote.accepted == False %}
+                        <h4 class="text-dark">{{ quote.title }}</h4>
+                    {% elif quote.accepted == True %}
+                        <p class="text-success">{{ quote.title }}</p> (Accepted)
+                    {% endif %}
+                    </p>
+                    <p><strong>Description:</strong> {{ quote.description }}</p>
+                    <p><strong>Price:</strong> ${{ quote.price }}</p>
+                    <p><strong>Expires:</strong> {{ quote.expiry_date }}</p>
+                    <a href="{% url 'admin-quote' quote.id %}"><strong>Quote Details</a> 
+                {% endfor %}
+            </div>
+  
+
+        </section>
+      </main><!-- End #main -->
+
+    
+ 
+    
+    
+
+      {% endblock content %}
+
+                
+      
+      
+      

@@ -1,0 +1,234 @@
+{% extends 'website/base.html' %}
+{% load static %}
+{% block title %} Marketplace | Home {% endblock title %}
+{% block content %}
+
+  <!-- alert -->
+  {% if alert %}
+  <div class="alert alert-warning text-center" role="alert" id="alert">
+      {{ alert }}
+  </div>
+  <script>
+      const alertBox = document.getElementById('alert')
+      function hideAlert() {
+          alertBox.classList.add('invisible')
+      }
+      setTimeout(hideAlert, 6000)
+  </script>
+{% endif %}
+<!-- end alert -->
+       
+  
+
+<!-- Welcome to Django Marketplace starts -->
+<section class="welcome">
+  <div class="container">
+
+  <div class="row g-3 justify-content-between align-items-center">
+      
+            <div class="welcomepost post col-lg-4 col-md-6 col-sm-12">
+              <h1>Welcome to <br>Django Marketplace</h1>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              </p>
+              
+                <a href="{% url 'signup' %}"><button type="button" class="main-btn tryNowWelcomebtn" >Try Now</button></a>
+            </div>
+            <div class="sideimg col-lg-7 col-md-6 col-sm-12">
+                   <img class="img-fluid w-100" src="{% static 'website/images/head/welcome.png' %}" alt="">
+            </div>
+       
+     
+  </div>
+</div>
+</section>
+<!-- Welcome to Django Marketplace Ends -->
+
+<!-- Use of Django Marketplace starts -->
+<section class="useOfMarketplace">
+  <div class="container">
+
+  <div class="row g-3 justify-content-between align-items-center">
+      
+            <div class="useMarketplacepost post col-lg-5 col-md-12 col-sm-12">
+                <h1 class="blackH1">Why Use<br> Django Marketplace?</h1>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
+                </p>
+                <a href="" class="d-flex flex-row align-items-center"><span><img src="{% static 'website/images/useOfMarketplace/videoIcon.png' %}" alt=""></span><span>Watch Video</span></a>
+
+          </div>
+
+          <div class="sideimg col-lg-6 col-md-12 col-sm-12">
+            <img class="img-fluid w-100" src="{% static 'website/images/useOfMarketplace/useOFMarketplace.png' %}" alt=""/>
+          </div>
+       
+     
+  </div>
+</div>
+</section>
+<!-- Use of Django Marketplace ends  -->
+
+
+<!-- start Work of Django Marketplace -->
+<section class="workofMarketplace">
+  <div class="container">
+
+  <div class="row g-3 justify-content-center align-items-center ">
+              <h1 class="blackH1 text-center">How Django Marketplace Works</h1>
+          <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
+          <a href="{% url 'signup' %}" class="text-center"><button type="button" class="main-btn workOfMarketplacebtn" >Try Now</button></a>
+
+          <div class="row cardsRow">
+              <div class="col-md-4 col-sm-12 ">
+                   
+                   <a href="">
+                      
+                      <div class="card box h-100 d-flex flex-column">
+                         
+                        <img src="{% static 'website/images/icons/search.png' %}" class="img-fluid w-100 card-img-top mt-auto" alt="...">
+                     
+                        <h5 class="card-title mt-3">Search Used</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
+                     
+                      </div>
+                  
+</a>
+                 
+              </div>
+              <div class="col-md-4 col-sm-12 pt-md-0 pt-sm-5 padding-for-xsm-screen">
+                 
+
+                    <a href="">
+                      
+                      <div class="card box h-100 d-flex flex-column">
+                         
+                        <img src="{% static 'website/images/icons/msg.png' %}" class="img-fluid w-100 card-img-top mt-auto" alt="...">
+                      
+                        <h5 class="card-title mt-3">Chat Online</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
+                      
+                      </div>
+               </a>
+                   
+              </div>
+              <div class="col-md-4 col-sm-12 pt-md-0 pt-sm-5 padding-for-xsm-screen">
+               
+
+                     <a href="">
+                      
+                     
+                      <div class="card box h-100 d-flex flex-column">
+                         
+                        <img src="{% static 'website/images/icons/cart.png' %}" class="img-fluid w-100 card-img-top mt-auto" alt="...">
+                      
+                        <h5 class="card-title mt-3">Buy In Person </h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
+                     
+                      </div>
+                   </a>
+              </div>
+          </div>
+  </div>
+</div>
+</section>
+<!-- end Work of Django Marketplace -->
+
+
+<!-- Start of activity leads -->
+      
+      <section class="activityLeads">
+  <div class="container">
+
+  <div class="row g-3 justify-content-between align-items-center">
+              
+           <h1>
+          View Local Used Items Now
+        </h1>
+        <p class="text-light">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit.
+        </p>
+        <a href="{% url 'signup' %}"><button type="button" class="main-btn activeleadsbtn" >Try Now</button></a>
+
+        <!-- carousel  -->
+        <div class="row g-3">
+               <div class="carousel-wrapper">
+          <div class="owl-carousel owl-theme">
+
+                <!-- Removed temporarily -->
+            
+          </div>
+        </div>
+          </div>
+     
+  </div>
+</div>
+</section>
+
+<!-- end of activity leads -->
+
+<!-- Start of contact form-->
+<section class="contact">
+  <div class="container">
+
+  <div class="row g-3 justify-content-between align-items-center">
+      
+            <div class="card" style="width: 1107px;">
+
+              <div class="row contactCard">
+                   <div class="col-lg-5 col-md-12 col-sm-12">
+                      <h1 class="blackH1">Questions about Django Marketplace?</h1>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
+                      </p>
+                   </div>
+                   <div class="form col-lg-6 col-md-12 col-sm-12">
+                    <form class="row g-3" method="POST">
+                      {% csrf_token %}
+                      <div class="col-md-6">
+                        <label for="validationServer01" class="form-label">Full Name</label>
+                        <input name="name" type="text" class="form-control" id="validationServer01"  required>
+                        <div class="valid-feedback">
+                          <!-- iNCASE  YOU PROVIDE SODME VALID FEEDBACK -->
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="validationServer02" class="form-label">Email</label>
+                        <input name="email" type="email" class="form-control" id="validationServer02" required>
+                        <div class="valid-feedback">
+                          <!-- iNCASE  YOU PROVIDE SODME VALID FEEDBACK -->
+                        </div>
+                      </div>
+                      
+                      <div class="mb-3 message">
+                        <label for="validationTextarea" class="form-label">Message</label>
+                        <textarea name="message" class="form-control" id="validationTextarea" placeholder="" required></textarea>
+                       
+                      </div>
+                      <div class="col-md-12">
+                        <button class="main-btn w-100" style="padding-bottom:2%;" type="submit">Submit</button>
+                      </div>
+                    </form>
+                   </div>
+              </div>
+
+            <div class="row justify-content-center">
+              <div class="col-md-12 text-center">
+                <img class="img-fluid" src="{% static 'website/images/form/form.png' %}" alt="">
+              </div>
+            </div>
+          
+            
+          </div>
+       
+     
+  </div>
+</div>
+</section>
+
+
+<!-- ends of contact form-->
+
+
+  
+
+{% endblock content %}

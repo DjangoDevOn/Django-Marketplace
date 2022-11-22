@@ -1,0 +1,118 @@
+{% extends 'marketplace/base.html' %}
+{% load static %}
+{% block title %} Marketplace | Messages {% endblock title %}
+{% block content %}
+
+    <main id="main" class="main">
+        {% if focused_user != '' %}
+
+        {% if messages %}
+        <div class="alert-warning p-2 pt-4 mt-2" id="alert">
+            {% for message in messages %}
+                <p class="text-center">{{ message }}</p>
+            {% endfor %}
+        </div>
+        <script>
+            const alertBox = document.getElementById('alert')
+            function hideAlert() {
+                alertBox.classList.add('invisible')
+            }
+            setTimeout(hideAlert, 6000)
+        </script>
+        {% endif %}
+
+        <div class="container">
+            <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+             <div class="mail-box">
+                    <aside class="sm-side">
+                        <ul class="inbox-nav mt-2">
+                            {% for user in user_list %}
+                                {% if user == focused_user %}
+                                    <li class="active" style="list-style:none;">
+                                        <a class="text-dark" href="{% url 'message-filter' user.id %}"><i class="fa fa-inbox"></i> {{user.useralias|title}}
+                                            {% for msg in unread_message_dict %}{% if msg.user == user %}{% if msg.count > 0 %}<span class="badge bg-warning badge-number">{{ msg.count }}</span>{% endif %}{% endif %}{% endfor %}</a>
+                                    </li>
+                                    <hr>
+                                {% else %}
+                                    <li class="active" style="list-style:none;">
+                                        <a href="{% url 'message-filter' user.id %}"><i class="fa fa-inbox"></i> {{user.useralias|title}} <span id="inbox-count" class="badge bg-warning badge-number">3</span></a>
+                                    </li>
+                                    <hr>
+                                {% endif %}
+                            {% endfor %}
+                        </ul> 
+                    </aside>
+                    <aside class="lg-side">
+                        <div class="inbox-head">
+                            <h3>Messages</h3>
+                            <form action="{% url 'message-search' %}" method="POST" class="pull-right position">
+                            {% csrf_token %}
+                                <div class="input-append">
+                                    <input name="q" type="text" class="form-fontrol sr-input" placeholder="Search">
+                                    <button class="btn sr-btn" type="button"><i class="fa fa-search"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="inbox-body">
+                            <section class="section">
+                            <div class="col-md-12">
+                                <div class="p-5">
+                                    <h4 class="mb-5 text-center">{{focused_user.useralias|title}}</h4>
+                                    {% for message in all_messages %} <!-- for each message check the sender/reciever -->
+        
+                                        {% if message.reciever == user %} <!--is the message for the logged in user? -->
+                                            {% if message.sender == focused_user %} <!-- is the message from the user in the user list?-->
+                                                <p>{{focused_user.useralias|title}}: <b>{{message.msg_content}}</b><span style="font-size:10px;" class="text-muted pull-right mt-2">{{message.created_at}} </span></p><br>
+                                            {% endif %}
+                                        {% endif %}
+        
+                                        {% if message.sender == user %} <!--is the message sent from the logged in user? -->
+                                            {% if message.reciever == focused_user %} <!-- is the message sent to the user in the user list?-->
+                                            <p>You: <b>{{message.msg_content}}</b><span style="font-size:10px;" class="text-muted pull-right mt-2">{{message.created_at}} </span><a href="{% url 'edit-message' message.id %}"> <i class="edit-msg font-weight-light bi bi-gear"></i></a><a href="{% url 'delete-message' message.id %}"> <i class="edit-msg text-muted bi bi-trash"></i></a></p><br>
+                                            {% endif %}
+                                        {% endif %}
+
+                                    {% endfor %}
+
+                                    </div>
+                                
+                                    <form action="" method="POST">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <textarea class="form-control" name="message" rows="2" autofocus></textarea>
+                                                <input type="text" name="respond_to_user" style="display:none" value="{{focused_user.id}}"> 
+                                            </div>
+                                            <div class="col-md-3">
+                                                <button type="submit" class="main-btn mt-3">Send</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                            </div>
+                        </div>
+            
+                    </section>
+            
+                    
+            
+                        </div>
+                    </aside>
+        </div>
+        </div>
+
+        {% else %}
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="card p-5">
+                    <h3 class="text-center">No messages live in your inbox</h3>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </main><!-- End #main -->
+
+{% endblock content %}
+
+
+ 

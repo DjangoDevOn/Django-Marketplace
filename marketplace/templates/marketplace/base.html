@@ -1,0 +1,1129 @@
+{% load static %}
+
+
+{% if user.is_authenticated %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+    <title>Django Marketplace</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+  
+    <!-- Favicons -->
+    <link href="{% static 'dashboard/img/favicon.png' %}" rel="icon">
+    <link href="{% static 'dashboard/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+  
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+
+    <script src="https://use.fontawesome.com/c29b59c14e.js"></script>
+  
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'dashboard/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'dashboard/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'dashboard/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'dashboard/vendor/quill/quill.snow.css' %}" rel="stylesheet">
+    <link href="{% static 'dashboard/vendor/quill/quill.bubble.css' %}" rel="stylesheet">
+    <link href="{% static 'dashboard/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+    <link href="{% static 'dashboard/vendor/simple-datatables/style.css' %}" rel="stylesheet">
+    <link href="{% static 'dashboard/css/messages.css' %}" rel="stylesheet">
+  
+    <!-- Template Main CSS File -->
+    <link href="{% static 'dashboard/css/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'website/style.css' %}">
+  
+  </head>
+
+ 
+  <body>
+
+<!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <span class="logo d-flex align-items-center">
+        <img style="margin-left:7%;" class="img-responsive" src="{% static 'website/images/logo/logo.png' %}" alt="">
+      </span>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+
+    <div class="search-bar invisible" id="request-search">
+      <form class="search-form d-flex align-items-center" method="POST" action="{% url 'search-requests' %}">
+        {% csrf_token %}
+        <input type="text" name="q" placeholder="Search available requests" title="Search available requests">
+        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+      </form>
+    </div> 
+
+    <div class="search-bar invisible" id="quote-search">
+      <form class="search-form d-flex align-items-center" method="POST" action="{% url 'search-quotes' %}">
+        {% csrf_token %}
+        <input type="text" name="q" placeholder="Search quotes you've recieved" title="Search quotes you've recieved">
+        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+      </form>
+    </div> 
+
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li><!-- End Search Icon-->
+
+       <!-- <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-bell"></i>
+            <span class="badge bg-primary badge-number">4</span>
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+            <li class="dropdown-header">
+              You have 4 new notifications
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-exclamation-circle text-warning"></i>
+              <div>
+                <h4>Lorem Ipsum</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>30 min. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-x-circle text-danger"></i>
+              <div>
+                <h4>Atque rerum nesciunt</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>1 hr. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-check-circle text-success"></i>
+              <div>
+                <h4>Sit rerum fuga</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>2 hrs. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-info-circle text-primary"></i>
+              <div>
+                <h4>Dicta reprehenderit</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>4 hrs. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li class="dropdown-footer">
+              <a href="#">Show all notifications</a>
+            </li>
+
+          </ul> 
+
+        </li> -->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-chat-left-text"></i>
+            <span class="badge bg-primary badge-number" id="unread-inbox-bubble"></span>
+          </a><!-- End Messages Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+            <div id="unread-inbox">
+             <!--AJAX GOES HERE-->
+            <!-- <hr>
+            <li class="dropdown-footer">
+              <a class="mb-3" href="{% url 'messages' %}">Show all</a>
+            </li>-->
+          </div>
+
+          </ul><!-- End Messages Dropdown Items -->
+
+        </li><!-- End Messages Nav -->
+
+<!-- 
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-question-circle"></i>
+            <span class="badge bg-primary badge-number" id="unread-support-inbox-bubble"></span>
+          </a> 
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+            <div id="unread-support-inbox">
+             
+          </div>
+
+          </ul> 
+
+        </li>  -->
+
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <img id="profile-photo"  src="" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{user.useralias|title}}</span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>{{user.useralias|title}}</h6>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url 'my-profile' %}">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url 'edit-profile' user.id %}">
+                <i class="bi bi-gear"></i>
+                <span>Account Settings</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url 'notification-settings' %}">
+                <i class="bi bi-card-list"></i>
+                <span>Notifications</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url 'support-faq' %}">
+                <i class="bi bi-question-circle"></i>
+                <span>Need Help?</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url 'signout' %}">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item invisible" id="all_req_link">
+        <a class="nav-link collapsed" href="{% url 'posts' %}">
+          <i class="bi bi-house"></i>
+          <span>All Requests</span>
+        </a>
+      </li> 
+
+
+      <li class="nav-item invisible" id="new_req_link">
+        <a class="nav-link collapsed" href="{% url 'new-request' %}">
+          <i class="bi bi-house"></i>
+          <span>New Request</span>
+        </a>
+      </li> 
+
+      
+      <li class="nav-item invisible" id="quote_link">
+        <a class="nav-link collapsed" href="{% url 'quotes' %}">
+          <i class="bi bi-grid"></i>
+          <span>My Quotes</span>
+          <span style="margin-left:4%; margin-bottom:-1%;" id="quote-notification-count-bubble" class="badge bg-warning badge-number"></span>
+        </a>
+      </li> 
+
+      <li class="nav-item invisible" id="request_link">
+        <a class="nav-link collapsed" href="{% url 'requests' %}">
+          <i class="bi bi-grid"></i>
+          <span>My Requests</span>
+          <span style="margin-left:4%; margin-bottom:-1%;" id="request-notification-count-bubble" class="badge bg-warning badge-number"></span>
+        </a>
+      </li> 
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'messages' %}">
+          <i class="bi bi-envelope"></i>
+          <span>Messages</span>
+          <span style="margin-left:4%; margin-bottom:-1%;" id="inbox-count" class="badge bg-warning badge-number"></span>
+        </a>
+      </li> 
+
+     
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-person"></i><span>Account</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'my-profile' %}">
+              <i class="bi bi-circle"></i><span>My Profile</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'edit-profile' user.id %}">
+              <i class="bi bi-circle"></i><span>Account Settings</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'notification-settings' %}">
+              <i class="bi bi-circle"></i><span>Notifications</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'support-faq' %}">
+              <i class="bi bi-circle"></i><span>FAQ</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+     
+
+    </ul>
+
+  </aside><!-- End Sidebar-->
+
+
+
+  
+ 
+{% else %}  <!-- if user not logged in -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+    <title>Marketplace</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+  
+    <!-- Favicons -->
+    <link href="{% static 'website/img/favicon.png' %}" rel="icon">
+    <link href="{% static 'website/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+  
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
+
+    <script src="https://use.fontawesome.com/c29b59c14e.js"></script>
+  
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'website/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'website/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'website/vendor/aos/aos.css' %}" rel="stylesheet">
+    <link href="{% static 'website/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+    <link href="{% static 'website/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+  
+    <!-- Variables CSS Files. Uncomment your preferred color scheme -->
+    <link href="{% static 'website/css/variables.css' %}" rel="stylesheet">
+    <!-- <link href="assets/css/variables-blue.css" rel="stylesheet"> -->
+    <!-- <link href="assets/css/variables-green.css" rel="stylesheet"> -->
+    <!-- <link href="assets/css/variables-orange.css" rel="stylesheet"> -->
+    <!-- <link href="assets/css/variables-purple.css" rel="stylesheet"> -->
+    <!-- <link href="assets/css/variables-red.css" rel="stylesheet"> -->
+    <!-- <link href="assets/css/variables-pink.css" rel="stylesheet"> -->
+  
+    <!-- Template Main CSS File -->
+    <link href="{% static 'website/css/main.css' %}" rel="stylesheet">
+  
+  </head>
+
+<body>
+
+
+
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top" data-scrollto-offset="0">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+
+      <a href="{% url 'index' %}" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="assets/img/logo.png" alt=""> -->
+        <h1>Marketplace<span>.</span>io</h1>
+      </a>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+
+         <!-- <li class="dropdown"><a href="#"><span>Home</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+              <li><a href="{% url 'index' %}" class="active">Home 1 - index.html</a></li>
+              <li><a href="index-2.html">Home 2 - index-2.html</a></li>
+              <li><a href="index-3.html">Home 3 - index-3.html</a></li>
+              <li><a href="index-4.html">Home 4 - index-4.html</a></li>
+            </ul>
+          </li>
+
+          <li><a class="nav-link scrollto" href="index.html#about">About</a></li>
+          <li><a class="nav-link scrollto" href="index.html#services">Services</a></li>
+          <li><a class="nav-link scrollto" href="index.html#portfolio">Portfolio</a></li>
+          <li><a class="nav-link scrollto" href="index.html#team">Team</a></li>
+          <li><a href="blog.html">Blog</a></li> 
+          <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+              <li><a href="#">Drop Down 1</a></li>
+              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                <ul>
+                  <li><a href="#">Deep Drop Down 1</a></li>
+                  <li><a href="#">Deep Drop Down 2</a></li>
+                  <li><a href="#">Deep Drop Down 3</a></li>
+                  <li><a href="#">Deep Drop Down 4</a></li>
+                  <li><a href="#">Deep Drop Down 5</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Drop Down 2</a></li>
+              <li><a href="#">Drop Down 3</a></li>
+              <li><a href="#">Drop Down 4</a></li>
+            </ul>
+          </li>-->
+          {% if user.is_authenticated %}
+          <!--<li><a class="nav-link scrollto" href="{% url 'posts' %}">Dashboard</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'signout' %}">Log Out</a></li>-->
+          {% else %}
+            <li><a class="nav-link scrollto" href="{% url 'login' %}">Log In</a></li>
+          {% endif %}
+          <li><a class="nav-link scrollto" href="{% url 'index' %}#contact">Contact</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle d-none"></i>
+      </nav><!-- .navbar -->
+
+      <a class="main-btn scrollto" href="{% url 'signup' %}">Try Now</a>
+
+    </div>
+  </header>
+  <!-- End Header -->
+
+
+
+  {% endif %}
+
+
+    {% block content %} {% endblock %}
+
+
+
+       
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+      <div class="copyright">
+      </div>
+      <div class="credits">
+      </div>
+    </footer><!-- End Footer -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="{% static 'dashboard/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'dashboard/vendor/apexcharts/apexcharts.min.js' %}"></script>
+    <script src="{% static 'dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'dashboard/vendor/quill/quill.min.js' %}"></script>
+    <script src="{% static 'dashboard/vendor/tinymce/tinymce.min.js' %}"></script>
+
+
+    <!-- Template Main JS File -->
+    <script src="{% static 'dashboard/js/main.js' %}"></script>
+
+    <script>
+      // saved & quoted post alert
+      const savedRequestError = document.getElementById('saved-request-error')
+      // saved post alert
+      const quotedRequestError = document.getElementById('quoted-request-error')
+
+      // request/feed filter links
+      const mostRecentAnchor = document.getElementById('most-recent')
+      const localOnlyAnchor = document.getElementById('quoted-request')
+      const savedRequestsAnchor = document.getElementById('saved-requests')
+
+      // load more stuff
+      const postsBox = document.getElementById('posts-box')
+      const spinnerBox = document.getElementById('spinner-box')
+      const loadMoreButton = document.getElementById('load-more')
+
+      // like_unlike and other post forms
+      const csrf = document.getElementsByName('csrfmiddlewaretoken')
+
+
+      // From Django Admin: (CSRF token for ajax) Search CSRF Django protection for more
+      // changes from original: changed to arrow function
+      const getCookie = (name)=> {
+          let cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+              const cookies = document.cookie.split(';');
+              for (let i = 0; i < cookies.length; i++) {
+                  const cookie = cookies[i].trim();
+                  // Does this cookie string begin with the name we want?
+                  if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
+              }
+          }
+          return cookieValue;
+      }
+      const csrftoken = getCookie('csrftoken');
+      
+      const likeUnlikePosts = ()=> {
+        // transform the forms to an array using the spread operator
+        const likeUnlikeForms = [...document.getElementsByClassName('like-unlike-forms')]
+        likeUnlikeForms.forEach(form=> form.addEventListener('submit', e=>{
+          e.preventDefault() // prevent form from submiting - we want to send data w/ ajax
+          const clickedId = e.target.getAttribute('data-form-id') // grab id of the form that was clicked from that custom attribute that saves the post id in the form html
+          const clickedBtn = document.getElementById(`like-unlike-${clickedId}`) // know what button was clicked so we can update it's content in the success of the ajax call- set an id for the button in the form
+      
+          $.ajax({
+            type: 'POST',
+            url: "/social/like-unlike/",
+            data: {
+              'csrfmiddlewaretoken': csrftoken,
+              'pk': clickedId,
+            },
+            success: function(response){
+              // adjust counter of the clicked button
+              console.log(response)
+              clickedBtn.innerHTML = response.liked ? `<i class="fa fa-heart"></i> ${response.count}`: `<i class="fa fa-heart-o"></i> ${response.count}`
+            },
+            error: function(error){
+              console.log(error)
+            }
+          })
+      
+        }))
+      }
+      
+      // doubles on click to load more posts
+      let visible_posts = 3
+
+
+    </script>
+
+    {% if most_recent %}
+
+    <script> // begin checking for filter
+      
+      // runs on button click
+      const getData = () => {      
+          $.ajax({
+          type: 'GET',
+          url: `/social/most-recent-data/${visible_posts}`,
+          success: function(response){
+              console.log(response)
+              const data = response.data
+              // spinner box
+              spinnerBox.classList.add('not-visible')
+              console.log(data)
+              mostRecentAnchor.classList.add('text-dark')
+              data.forEach(el => {
+                  postsBox.innerHTML += `
+                      <div class="card mb-3">
+                      <div class="card-body text-center">
+                        <div class="row">
+                          <!--<img src="/media/${el.photo}" />-->
+                          <p style="margin-top:2.5%;">Posted By: <b>${el.author}</b></p>
+                        </div>
+                          <h5 class="card-title">${el.title}</h5>
+                          <p class="text-primary">${el.description}</p>
+                          <i><small>Need By: <b>${el.need_by_date}</b></small></i>
+                          <br>
+                          <i><small>Quote Cap: <b>${el.maximum_quotes_desired}</b></small></i>
+                      </div>
+                      <div class="card-footer">
+                          <div class="row text-center">
+                              <div class="col">
+                                <a href="http://127.0.0.1:8000/social/request-details/${el.id}" style="background-color:transparent; border:none;"><i class="fa fa-info"></i> Details</a>
+                              </div>
+                              ${el.limit_message ? `<div class="col">
+                                <p style="background-color:transparent; border:none;">${el.limit_message}</p>
+                              </div>` : `<div class="col">
+                                <a href="http://127.0.0.1:8000/social/new-quote/${el.id}" style="background-color:transparent; border:none;"><i class="fa fa-comment-o"></i> Quote</a>
+                              </div>`}
+                              <div class="col">
+                                <a href="http://127.0.0.1:8000/social/new-message/${el.id}" style="background-color:transparent; border:none;"><i class="fa fa-envelope-o"></i> Message</a>
+                              </div>
+                              <div class="col">
+                                  <form class="like-unlike-forms" data-form-id="${el.id}">
+                                    <button style="background-color:transparent; border:none;" id="like-unlike-${el.id}">${el.liked ? `<i class="fa fa-heart"></i> ${el.count}`: `<i class="fa fa-heart-o"></i> ${el.count}`} </button>
+                                  </form>
+                              </div>
+                          </div>
+                      </div>
+                      </div>
+                  `
+              });
+              likeUnlikePosts()
+              quotedRequestError.remove()
+              savedRequestError.remove()
+          },
+          error: function(error){
+              console.log('error', error)
+          }
+      }) // end ajax
+      }
+      
+    </script>
+
+    {% endif %}
+    {% if saved_requests %}
+
+    <script> // begin checking for filter
+      
+      // runs on button click
+      const getData = () => {      
+          $.ajax({
+          type: 'GET',
+          url: `/social/saved-requests-data/${visible_posts}`,
+          success: function(response){
+              console.log(response)
+              const data = response.data
+              // spinner box
+              spinnerBox.classList.add('not-visible')
+              console.log(data)
+              savedRequestsAnchor.classList.add('text-dark')
+              data.forEach(el => {
+                  postsBox.innerHTML += `
+                      <div class="card mb-3">
+                      <div class="card-body text-center">
+                        <div class="row">
+                          <!--<img src="/media/${el.photo}" />-->
+                          <p style="margin-top:2.5%;">Posted By: <b>${el.author}</b></p>
+                        </div>
+                          <h5 class="card-title">${el.title}</h5>
+                          <p class="text-primary">${el.description}</p>
+                          <i><small>Need By: <b>${el.need_by_date}</b></small></i>
+                          <br>
+                          <i><small>Quote Cap: <b>${el.maximum_quotes_desired}</b></small></i>
+                      </div>
+                      <div class="card-footer">
+                          <div class="row text-center">
+                              <div class="col">
+                                <a href="http://127.0.0.1:8000/social/request-details/${el.id}" style="background-color:transparent; border:none;"><i class="fa fa-info"></i> Details</a>
+                              </div>
+                              ${el.limit_message ? `<div class="col">
+                                <p style="background-color:transparent; border:none;">${el.limit_message}</p>
+                              </div>` : `<div class="col">
+                                <a href="http://127.0.0.1:8000/social/new-quote/${el.id}" style="background-color:transparent; border:none;"><i class="fa fa-comment-o"></i> Quote</a>
+                              </div>`}
+                              <div class="col">
+                                <a href="http://127.0.0.1:8000/social/new-message/${el.id}" style="background-color:transparent; border:none;"><i class="fa fa-envelope-o"></i> Message</a>
+                              </div>
+                              <div class="col">
+                                  <form class="like-unlike-forms" data-form-id="${el.id}">
+                                    <button style="background-color:transparent; border:none;" id="like-unlike-${el.id}">${el.liked ? `<i class="fa fa-heart"></i> ${el.count}`: `<i class="fa fa-heart-o"></i> ${el.count}`} </button>
+                                  </form>
+                              </div>
+                          </div>
+                      </div>
+                      </div>
+                  `
+              });
+              if (!$.trim(data)){   
+                savedRequestError.innerHTML += `<h4 class="text-dark text-center mt-5 mb-3">You haven't saved any Requests yet</h4>`
+                quotedRequestError.remove()
+              }
+              likeUnlikePosts()
+              quotedRequestError.remove()
+              // savedRequestError.remove()
+          },
+          error: function(error){
+              console.log('error', error)
+          }
+      }) // end ajax
+      }
+      
+    </script>
+
+    {% endif %}
+    <!--{% if best_matches %}
+
+    <script> // begin checking for filter
+      
+      // runs on button click
+      const getData = () => {      
+          $.ajax({
+          type: 'GET',
+          url: `/social/best-matches-data/${visible_posts}`,
+          success: function(response){
+              console.log(response)
+              const data = response.data
+              // spinner box
+              spinnerBox.classList.add('not-visible')
+              console.log(data)
+              data.forEach(el => {
+                  postsBox.innerHTML += `
+                      <div class="card mb-3">
+                      <div class="card-body text-center">
+                        <div class="row">
+                          <p style="margin-top:2.5%;">Posted By: <b>${el.author}</b></p>
+                        </div>
+                          <h5 class="card-title">${el.title}</h5>
+                          <p class="text-primary">${el.description}</p>
+                          <i><small>Need By: <b>${el.need_by_date}</b></small></i>
+                          <br>
+                          <i><small>Quote Cap: <b>${el.maximum_quotes_desired}</b></small></i>
+                      </div>
+                      <div class="card-footer">
+                          <div class="row text-center">
+                              <div class="col">
+                                <a href="http://127.0.0.1:8000/social/request-details/${el.id}" style="background-color:transparent; border:none;"><i class="fa fa-info"></i> Details</a>
+                              </div>
+                              ${el.limit_message ? `<div class="col">
+                                <p style="background-color:transparent; border:none;">${el.limit_message}</p>
+                              </div>` : `<div class="col">
+                                <a href="http://127.0.0.1:8000/social/new-quote/${el.id}" style="background-color:transparent; border:none;"><i class="fa fa-comment-o"></i> Quote</a>
+                              </div>`}
+                              <div class="col">
+                                <a href="http://127.0.0.1:8000/social/new-message/${el.id}" style="background-color:transparent; border:none;"><i class="fa fa-envelope-o"></i> Message</a>
+                              </div>
+                              <div class="col">
+                                  <form class="like-unlike-forms" data-form-id="${el.id}">
+                                    <button style="background-color:transparent; border:none;" id="like-unlike-${el.id}">${el.liked ? `<i class="fa fa-heart"></i> ${el.count}`: `<i class="fa fa-heart-o"></i> ${el.count}`} </button>
+                                  </form>
+                              </div>
+                          </div>
+                      </div>
+                      </div>
+                  `
+              });
+              likeUnlikePosts()
+          },
+          error: function(error){
+              console.log('error', error)
+          }
+      }) // end ajax
+      }
+      
+    </script>
+
+    {% endif %}-->
+    {% if quoted_request %}
+
+    <script> // begin checking for filter
+      
+      // runs on button click
+      const getData = () => {      
+          $.ajax({
+          type: 'GET',
+          url: `/social/quoted-request-data/${visible_posts}`,
+          success: function(response){
+              console.log(response)
+              const data = response.data
+              // spinner box
+              spinnerBox.classList.add('not-visible')
+              console.log(data)
+              localOnlyAnchor.classList.add('text-dark')
+              data.forEach(el => {
+                  postsBox.innerHTML += `
+                      <div class="card mb-3">
+                      <div class="card-body text-center">
+                        <div class="row">
+                          <!--<img src="/media/${el.photo}" />-->
+                          <p style="margin-top:2.5%;">Posted By: <b>${el.author}</b></p>
+                        </div>
+                          <h5 class="card-title">${el.title}</h5>
+                          <p class="text-primary">${el.description}</p>
+                          <i><small>Need By: <b>${el.need_by_date}</b></small></i>
+                          <br>
+                          <i><small>Quote Cap: <b>${el.maximum_quotes_desired}</b></small></i>
+                      </div>
+                      <div class="card-footer">
+                          <div class="row text-center">
+                              <div class="col">
+                                <a href="http://127.0.0.1:8000/social/request-details/${el.id}" style="background-color:transparent; border:none;"><i class="fa fa-info"></i> Details</a>
+                              </div>
+                              ${el.limit_message ? `<div class="col">
+                                <p style="background-color:transparent; border:none;">${el.limit_message}</p>
+                              </div>` : `<div class="col">
+                                <a href="http://127.0.0.1:8000/social/new-quote/${el.id}" style="background-color:transparent; border:none;"><i class="fa fa-comment-o"></i> Quote</a>
+                              </div>`}
+                              <div class="col">
+                                <a href="http://127.0.0.1:8000/social/new-message/${el.id}" style="background-color:transparent; border:none;"><i class="fa fa-envelope-o"></i> Message</a>
+                              </div>
+                              <div class="col">
+                                  <form class="like-unlike-forms" data-form-id="${el.id}">
+                                    <button style="background-color:transparent; border:none;" id="like-unlike-${el.id}">${el.liked ? `<i class="fa fa-heart"></i> ${el.count}`: `<i class="fa fa-heart-o"></i> ${el.count}`} </button>
+                                  </form>
+                              </div>
+                          </div>
+                      </div>
+                      </div>
+                  `
+              });
+              if (!$.trim(data)){   
+                quotedRequestError.innerHTML += `<h4 class="text-dark text-center mt-5 mb-3">You haven't quoted any requests yet</h4>`
+                savedRequestError.remove()
+              }
+              likeUnlikePosts()
+              savedRequestError.remove()
+              // savedRequestError.remove()
+          },
+          error: function(error){
+              console.log('error', error)
+          }
+      }) // end ajax
+      }
+      
+    </script>
+    
+    {% endif %}
+
+    <script>
+      
+      
+      loadMoreButton.addEventListener('click', ()=>{
+          // show spinner box
+          spinnerBox.classList.remove('not-visible')
+          visible_posts += 3
+          getData()
+      })
+      
+      
+      getData()
+      
+      </script>
+      
+      
+      
+      
+          <!-- MAIN SITE JS -->
+          <script>
+            // sidebar notifications
+            const request_got_a_quote_count_bubble = document.getElementById('request-notification-count-bubble')
+            const quote_notification_count_bubble  = document.getElementById('quote-notification-count-bubble')
+            const inbox_bubble = document.getElementById('inbox-count')
+            //const ref_bubble = document.getElementById('referral-count')
+      
+            // top bar message general/support
+            const unread_inbox = document.getElementById('unread-inbox')
+            const unread_support_inbox = document.getElementById('unread-support-inbox')
+
+            // counter
+            const unread_inbox_bubble = document.getElementById('unread-inbox-bubble')
+            const unread_support_inbox_bubble = document.getElementById('unread-support-inbox-bubble')
+      
+            // profile photo
+            const profile_photo = document.getElementById('profile-photo')
+      
+            // referral count
+            //  $.ajax({
+            //     type: 'GET',
+            //     url: "/accounts/ref-count/",
+            //     success: function(response){
+            //         const data = response.referral_count
+            //         if (data > 0) { // check if it's empty first
+            //           ref_bubble.innerHTML += data
+            //         }
+            //         },
+            //     error: function(error){
+            //         console.log('error', error)
+            //     }
+            // }) 
+
+            // inbox count for side nav
+            $.ajax({
+              type: 'GET',
+              url: "/accounts/inbox-count/",
+              success: function(response){
+                  const data = response.inbox_count
+                  if (data > 0) { // check if it's empty first
+                  inbox_bubble.innerHTML += data
+                  }
+                  },
+              error: function(error){
+                  console.log('error', error)
+              }
+          })
+      
+      
+            // inbox count for top nav
+            $.ajax({
+                type: 'GET',
+                url: "/accounts/inbox-count/",
+                success: function(response){
+                    const data = response.inbox_count
+                    if (data > 0) { // check if it's empty first
+                      unread_inbox_bubble.innerHTML += data
+                    }
+                    },
+                error: function(error){
+                    console.log('error', error)
+                }
+            })
+      
+       // support inbox count for top nav
+       $.ajax({
+        type: 'GET',
+        url: "/accounts/support-inbox-count/",
+        success: function(response){
+            const data = response.inbox_count
+            if (data > 0) { // check if it's empty first
+              unread_support_inbox_bubble.innerHTML += data
+            }
+            },
+        error: function(error){
+            console.log('error', error)
+        }
+      })
+
+
+      // quote accepted / rejected count for side nav
+      $.ajax({
+        type: 'GET',
+        url: "/accounts/quote-accepted-rejected-count/",
+        success: function(response){
+            const data = response.quote_notification_count
+            if (data > 0) { // check if it's empty first
+            quote_notification_count_bubble.innerHTML += data
+            }
+            },
+        error: function(error){
+            console.log('error', error)
+        }
+      })
+
+
+       // quote message inbox (for sellers)
+       $.ajax({
+        type: 'GET',
+        url: "/accounts/quote-inbox-count/",
+        success: function(response){
+            const data = response.quote_inbox_count
+            if (data > 0) { // check if it's empty first
+            quote_notification_count_bubble.innerHTML += data
+            }
+            },
+        error: function(error){
+            console.log('error', error)
+        }
+      })
+
+
+      // quote message inbox (for buyers)
+      $.ajax({
+        type: 'GET',
+        url: "/accounts/quote-inbox-count/",
+        success: function(response){
+            const data = response.quote_inbox_count
+            if (data > 0) { // check if it's empty first
+            request_got_a_quote_count_bubble.innerHTML += data
+            }
+            },
+        error: function(error){
+            console.log('error', error)
+        }
+      })
+
+
+      // request got quote count for side nav
+      $.ajax({
+        type: 'GET',
+        url: "/accounts/request-got-quote-count/",
+        success: function(response){
+            const data = response.request_got_a_quote_count
+            if (data > 0) { // check if it's empty first
+            request_got_a_quote_count_bubble.innerHTML += data
+            }
+            },
+        error: function(error){
+            console.log('error', error)
+        }
+      })
+
+      
+          // profile photo for top nav
+          $.ajax({
+              type: 'GET',
+              url: "/accounts/profile-photo/",
+              success: function(response){
+                  const data = response.profile_photo
+                  profile_photo.src = data
+                  },
+              error: function(error){
+                  console.log('error', error)
+              }
+          })
+      
+
+          // for top nav
+          $.ajax({
+            type: 'GET',
+            url: "/accounts/unread-general-inbox/",
+            success: function(response){
+                const data = response.unread_inbox
+                if (!$.trim(data)) { 
+                  unread_inbox.innerHTML += `<p class="text-muted p-1 mt-3 text-center">No new messages</p>`
+                }
+                data.forEach(el => {
+                    unread_inbox.innerHTML += `
+                    <li class="message-item">
+                      <div class="row">
+                      <h4><a class="pull-right" href="/social/message-read/${el.id}/"> <i class="fa fa-times-circle"></i> </a> </h4>
+                      </div>
+                      <a href="/social/messages">
+                        <img src="/media/${el.photo}" alt="" class="rounded-circle">
+                        <div>
+                          <p><b>${el.sender}</b></p>
+                          <p><small>${el.created_at}</small></p>
+                        </div>
+                      </a>
+                    </li>
+                    `
+                });
+            },
+            error: function(error){
+                console.log('error', error)
+            }
+        })
+      
+
+      
+        // for top nav
+        $.ajax({
+        type: 'GET',
+        url: "/accounts/unread-support-inbox/",
+        success: function(response){
+            const data = response.unread_inbox
+            if (!$.trim(data)) { 
+              unread_support_inbox.innerHTML += `<p class="text-muted p-1 mt-3 text-center">No notifications</p>`
+            }
+            data.forEach(el => {
+              unread_support_inbox.innerHTML += `
+              <li class="message-item">
+                <div class="row">
+                  <h4><a class="pull-right" href="/social/ticket-read/${el.id}/"> <i class="fa fa-times-circle"></i> </a> </h4>
+                </div>
+                <a href="/accounts/ticket/${el.ticket_id}/">
+                  <img src="/media/${el.photo}" alt="" class="rounded-circle">
+                  <div>
+                      <p><b>${el.sender}</b></p>
+                      <p>${el.msg_content} | <small>${el.created_at}</small></p>
+                  </div>
+                </a>
+              </li>
+              `
+          });
+        },
+        error: function(error){
+            console.log('error', error)
+        }
+    })
+  
+
+    // general / permissions
+
+    const request_link = document.getElementById('request_link');
+    const quote_link = document.getElementById('quote_link');
+    const all_req_link = document.getElementById('all_req_link')
+    const new_req_link = document.getElementById('new_req_link')
+    const quote_search = document.getElementById('quote-search')
+    const request_search = document.getElementById('request-search')
+
+    // profile type
+    $.ajax({
+      type: 'GET',
+      url: "/accounts/profile-type/",
+      success: function(response){
+          const data = response.profile_type
+          console.log(data)
+          if (data){ // Buyers  
+            quote_search.classList.remove("invisible");
+            request_search.remove();
+            request_link.classList.remove("invisible");
+            new_req_link.classList.remove("invisible");
+            quote_link.remove();
+            all_req_link.remove();
+          } else { // Sellers
+            request_search.classList.remove("invisible");
+            quote_search.remove();
+            all_req_link.classList.remove("invisible");
+            quote_link.classList.remove("invisible");
+            request_link.remove();
+            new_req_link.remove();
+          }
+          },
+      error: function(error){
+          console.log('error', error)
+      }
+    })
+
+
+   
+  </script>
+      
+      
+      
+       
+
+
+
+
+  </body>
+</html>
+
+
+
+

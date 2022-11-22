@@ -1,0 +1,53 @@
+{% extends 'adminarea/base.html' %}
+{% load static %}
+{% block title %} Marketplace | Admin FAQ {% endblock title %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<main id="main" class="main">
+    <section class="section">
+
+        
+<div class="page-content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <h2 class="h5 no-margin-bottom">Admin FAQ</h2>
+            <a href="{% url 'admin-new-faq-post' %}" style="margin-top:-3%; margin-bottom:6%;" class="pull-right btn-sm main-btn mt-3-inverted">+ New Post</a>
+        </div>
+    </div>
+
+
+    <section>
+        <div class="block mt-5">
+            <div class="row mt-4">
+            {% if categories%}
+            {% for cat in categories %}
+                <h4 class="text-center mb-4">{{cat.cat_title|title}}</h4>
+                {% for faq in faqs %}
+                    {% if faq.category == cat %}
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <h6 class="mb-3 text-primary"><i class="icon-light-bulb text-primary pe-2"></i> {{faq.question}}</h6>
+                            <p>
+                            {{faq.answer|safe}}
+                            </p>
+                            <a style="margin-left:-1%;" class="main-btn mt-3-inverted" href="{% url 'admin-edit-faq-post' faq.id %}">Edit</a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+            {% else %}
+                <h4 class="text-center">No FAQ posts have been written yet</h4>
+            {% endif %}
+            </div>
+        </div>
+    </section>
+
+
+</div>
+
+    
+</section>
+</main><!-- End #main -->
+ 
+
+{% endblock content %}

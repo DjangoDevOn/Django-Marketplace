@@ -1,0 +1,56 @@
+{% extends 'marketplace/base.html' %}
+{% load static %}
+{% block title %} Marketplace | Referrals {% endblock title %}
+{% block content %}
+<script>
+    setTimeout(function(){
+    window.location.href = 'http://127.0.0.1:8000/accounts/referrals/';
+    }, 1000);
+</script>
+
+
+<main id="main" class="main">
+
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <h2 class="h5 no-margin-bottom">Tell a friend. Make money.</h2>
+
+
+
+        <h3 class="text-orange">
+          Every time somebody uses this link and joins <br />
+          <b>you get $50 cash.</b>
+        </h3>
+
+
+      </div>
+    </div>
+  </section>
+
+
+
+  <section class="no-padding-top no-padding-bottom">
+    <div class="container-fluid">
+        <div class="text-center mt-5">
+            <h3 style="color:#e6d7fa;">
+                {% if accepted_receipt_count > 1 %}
+                    Accepting {{accepted_receipt_count}} Referral Payments
+                {% else %}
+                    Accepting {{accepted_receipt_count}} Referral Payment
+                {% endif %}
+            </h3>
+            <div class="spinner-border text-light mt-3" role="status">
+            <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
+  </section>
+
+</main><!-- End #main -->
+ 
+
+
+{% endblock content %}

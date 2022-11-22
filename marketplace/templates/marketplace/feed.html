@@ -1,0 +1,61 @@
+{% extends 'marketplace/base.html' %}
+{% load static %}
+{% block title %} Marketplace | Request Feed {% endblock title %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+    <style>
+    .not-visible{
+        display:none;
+    }
+    </style>
+
+
+    <main id="main" class="main">
+
+        <!-- Post created alert -->
+        <div id="alert-box"></div>
+        <section class="section">
+          <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h3 class="text-center mb-4 mt-5">Requests you might like</h3>
+    
+                    <div class="row mb-4">
+                        <div class="col-md-4 text-center">
+                            <a href="{% url 'quoted-request-filter' %}" id="quoted-request" class="text-center text-primary">Quoted Requests</a>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <a href="{% url 'posts' %}" id="most-recent" class="text-center text-primary">Most Recent</a>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <a href="{% url 'saved-requests-filter' %}" id="saved-requests" class="text-center text-primary">Saved Requests</a>
+                        </div>
+                    </div>
+         
+                        <!-- Posts-->
+                    <div class="articles card">
+                        <div class="card-body text-dark mt-3">
+                            <div id="saved-request-error"></div>
+                            <div id="quoted-request-error"></div>
+                            <!-- Post Box -->
+                            <div id="posts-box"></div>
+                            <!-- Spinner -->
+                            <div style="margin-left:47%;" class="mt-5 mb-5 spinner-border text-primary" role="status" id="spinner-box">
+                            </div>
+                            <!-- Load More -->
+                            <div class="text-center mb-3" id="end-box">
+                                <button style="margin-left:6%;"id="load-more" class="main-btn mt-3">Load More</button>
+                            </div>
+                        </div>
+                    </div>
+                  
+        
+                </div>
+              </div>
+          </div>
+        </section>
+      
+      </main><!-- End #main -->
+ 
+{% endblock content %}

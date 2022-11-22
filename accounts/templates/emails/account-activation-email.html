@@ -1,0 +1,7 @@
+{% autoescape off %}
+Hey {{ user.useralias }}!
+
+Follow the link below to confirm this email so we can review your Marketplace account application!
+
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+{% endautoescape %}

@@ -1,0 +1,107 @@
+{% extends 'marketplace/base.html' %}
+{% load static %}
+{% block title %} Marketplace | Referrals {% endblock title %}
+{% block content %}
+
+
+<main id="main" class="main">
+
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <h2 class="h5 no-margin-bottom">Tell a friend. Make money.</h2>
+
+
+
+<h3 class="text-orange">
+  Every time somebody uses this link and joins <br />
+  <b>you get $50 cash.</b>
+</h3>
+
+<input
+  class="text-center mt-3"
+  style="width: 80%; height:80px; font-size:19px;"
+  type="text"
+  value="http://127.0.0.1:8000/accounts/referral/{{profile.code}}"
+  id="myInput"
+/>
+
+<button class="btn btn-lg btn-primary" onclick="myFunction()">
+  <i class="fa fa-clipboard"></i> Copy to Clipboard
+</button>
+
+
+{% if record %}
+  <br>
+  <h4 class="mt-5 text-white">{{ record|title }}</h4>
+
+  {% if referral_count %}
+    <a href="{% url 'accept-payouts' %}" class="main-btn mt-3-inverted btn-lg mt-4">Redeem New Payouts</a>
+  {% else %}
+    <br>
+    <h4 class="text-lavendar"><i>*No payouts to redeem at this time</i><h4>
+  {% endif %}
+
+{% endif %}
+
+
+
+
+{% if referrals %}
+{% for referral in referrals %}
+<div class="justify-content-md-center mt-3 bg-gray p-3 mt-5">
+<h3 class="text-center">Your Referral Income</h3>
+<hr />
+<div class="row">
+<div class="col">
+<p><b>Client Name:</b> {{ referral.name }}</p>
+</div>
+<div class="col">
+<p><b>Monthly Revenue:</b> ${{ referral.monthly_revenue }}</p>
+</div>
+<div class="col">
+{% if referral.read %}
+<p class="text-success"><i class="fa fa-check"></i> Read</p>
+{% else %}
+<a
+href="{% url 'mark-referral-as-read' referral.id %}"
+class="text-danger"
+><i class="fa fa-times-circle"></i> Accept</a
+>
+{% endif %}
+</div>
+</div>
+</div>
+{% endfor %}
+{% endif %}
+
+
+      <script>
+        function myFunction() {
+          /* Get the text field */
+          var copyText = document.getElementById("myInput");
+
+          /* Select the text field */
+          copyText.select();
+          copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+          /* Copy the text inside the text field */
+          document.execCommand("copy");
+
+          /* Alert the copied text */
+          alert("Copied your referral link: " + copyText.value);
+        }
+      </script>
+
+
+      </div>
+    </div>
+  </section>
+
+</main><!-- End #main -->
+ 
+ 
+
+{% endblock content %}

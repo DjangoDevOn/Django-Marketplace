@@ -1,0 +1,36 @@
+{% extends 'marketplace/base.html' %}
+{% load static %}
+{% block title %} Marketplace | Message Search Results {% endblock title %}
+{% block content %}
+
+
+<main id="main">
+  <!-- ======= Search Results Section ======= -->
+  <section>
+    <div class="container-fluid" data-aos="fade-up">
+        <h3 class="text-center mt-5 mb-5"> Here are some messages we found for "{{query}}"</h3>
+
+      <div class="row justify-content-center">
+          {% for message in queryset %}
+          <div class="col-md-3 mb-5 p-4 card m-2 text-center">
+              <h4 class="title">{{message.sender.username}}</h4>
+              <p>{{message.msg_content|truncatechars:25}}</p>
+              <div>
+                <a class="main-btn mt-3" href="{% url 'message-filter' message.sender.id %}">Details</a>
+              </div>
+            </div>
+          {% endfor %}
+      </div>
+
+    </div>
+  </section><!-- End Search ResultsSection -->
+
+</main><!-- End #main -->
+
+
+
+
+ 
+
+
+{% endblock %}

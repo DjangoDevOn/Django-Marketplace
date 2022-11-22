@@ -1,0 +1,78 @@
+{% extends 'adminarea/base.html' %}
+{% load static %}
+{% block title %} Marketplace | All Quotes {% endblock title %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+ 
+
+    <main id="main" class="main">
+        <section class="section">
+
+          <!-- alert -->
+             {% if alert %}
+             <div class="alert alert-warning" role="alert" id="alert">
+                 {{ alert }}
+             </div>
+             <script>
+                 const alertBox = document.getElementById('alert')
+                 function hideAlert() {
+                     alertBox.classList.add('invisible')
+                 }
+                 setTimeout(hideAlert, 6000)
+             </script>
+         {% endif %}
+         <!-- end alert -->
+
+
+        <div class="page-header">
+            <div class="container-fluid">
+                <h2 class="h5 no-margin-bottom">Quotes</h2>
+            </div>
+        </div>
+
+            {% if quotes %}
+                {% for quote in quotes %}
+                <div class="row justify-content-center">
+                    <div class="card mb-3 col-md-6 m-5">
+                        <div class="card-body text-center p-5">
+                            <h2 class="card-title"><b>{{quote.request.title}}</b></h2>
+                            <p class="text-dark">Description: <br>
+                                <b class="text-primary">{{quote.description}}</b></p>
+                            <i><small>Price: <b>${{quote.price}}</b></small></i>
+                            <i><small>Request Author: <b>{{quote.request.author.user.username}}</b></small></i>
+                            <br>
+                            <i><small>Expires On: <b>{{quote.expiry_date}}</b></small></i>
+                            <p class="card-title">Request: <b><a href="{% url 'admin-request' quote.request.id %}">{{quote.request.title}}</a></b></p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row text-center">
+                                <div class="col">
+                                    <a class="btn btn-outline-primary" href="{% url 'admin-quote' quote.id %}">Details</a>
+                                </div>                
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+            <div class="row justify-content-center">
+                <h4 class="text-center mt-5">No Quotes here...</h4>
+            </div>
+            {% endif %}
+
+             
+        </section>
+      </main><!-- End #main -->
+
+    
+ 
+    
+    
+
+      {% endblock content %}
+
+                
+      
+      
+      

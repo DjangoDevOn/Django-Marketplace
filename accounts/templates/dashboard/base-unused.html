@@ -1,0 +1,452 @@
+{% load static %}
+ 
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+    <title>Django Marketplace | Dashboard</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+  
+    <!-- Favicons -->
+    <link href="{% static 'dashboard/img/favicon.png' %}" rel="icon">
+    <link href="{% static 'dashboard/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+  
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'dashboard/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'dashboard/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'dashboard/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'dashboard/vendor/quill/quill.snow.css' %}" rel="stylesheet">
+    <link href="{% static 'dashboard/vendor/quill/quill.bubble.css' %}" rel="stylesheet">
+    <link href="{% static 'dashboard/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+    <link href="{% static 'dashboard/vendor/simple-datatables/style.css' %}" rel="stylesheet">
+  
+    <!-- Template Main CSS File -->
+    <link href="{% static 'dashboard/css/style.css' %}" rel="stylesheet">
+  
+  </head>
+
+ 
+  <body>
+
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img src="assets/img/logo.png" alt="">
+        <span class="d-none d-lg-block">Marketplace<span class="text-primary">.</span>io</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    <div class="search-bar">
+      <form class="search-form d-flex align-items-center" method="POST" action="{% url 'request-search' %}">
+        {% csrf_token %}
+        <input type="text" name="q" placeholder="Search" title="Enter search keyword">
+        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+      </form>
+    </div><!-- End Search Bar -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li><!-- End Search Icon-->
+
+       <!-- <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-bell"></i>
+            <span class="badge bg-primary badge-number">4</span>
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+            <li class="dropdown-header">
+              You have 4 new notifications
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-exclamation-circle text-warning"></i>
+              <div>
+                <h4>Lorem Ipsum</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>30 min. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-x-circle text-danger"></i>
+              <div>
+                <h4>Atque rerum nesciunt</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>1 hr. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-check-circle text-success"></i>
+              <div>
+                <h4>Sit rerum fuga</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>2 hrs. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-info-circle text-primary"></i>
+              <div>
+                <h4>Dicta reprehenderit</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>4 hrs. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li class="dropdown-footer">
+              <a href="#">Show all notifications</a>
+            </li>
+
+          </ul> 
+
+        </li> -->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-chat-left-text"></i>
+            <span class="badge bg-success badge-number" id="unread-inbox-bubble"></span>
+          </a><!-- End Messages Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+            <div id="unread-inbox">
+             <!--AJAX GOES HERE-->
+            <li class="dropdown-footer">
+              <a href="{% url 'support-tickets' %}">Show all messages</a>
+            </li>
+          </div>
+
+          </ul><!-- End Messages Dropdown Items -->
+
+        </li><!-- End Messages Nav -->
+
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <img id="profile-photo"  src="" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{user.username|title}}</span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>{{user.username|title}}</h6>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url 'account' %}">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url 'account' %}">
+                <i class="bi bi-gear"></i>
+                <span>Account Settings</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url 'support' %}">
+                <i class="bi bi-question-circle"></i>
+                <span>Need Help?</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url 'signout' %}">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'posts' %}">
+          <i class="bi bi-grid"></i>
+          <span>Feed</span>
+        </a>
+      </li> 
+     
+      <li class="nav-item invisible" id="quote_link">
+        <a class="nav-link collapsed" href="{% url 'quotes' %}">
+          <i class="bi bi-grid"></i>
+          <span>Quotes</span>
+        </a>
+      </li> 
+
+      <li class="nav-item invisible" id="request_link">
+        <a class="nav-link collapsed" href="{% url 'requests' %}">
+          <i class="bi bi-grid"></i>
+          <span>Requests</span>
+        </a>
+      </li> 
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'messages' %}">
+          <i class="bi bi-grid"></i>
+          <span>Messages</span>
+        </a>
+      </li> 
+
+     
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-journal-text"></i><span>Account</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'account' %}">
+              <i class="bi bi-circle"></i><span>Settings</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'referrals' %}">
+              <i class="bi bi-circle"></i><span>Referrals</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'support' %}">
+              <i class="bi bi-circle"></i><span>Support</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'notification-settings' %}">
+              <i class="bi bi-circle"></i><span>Notifications</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+ 
+
+
+
+     <!-- <li class="nav-heading">Account</li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'account' %}">
+          <i class="bi bi-person"></i>
+          <span>Account Settings</span>
+        </a>
+      </li> -->
+ 
+
+     
+
+    </ul>
+
+  </aside><!-- End Sidebar-->
+
+
+
+   
+
+    {% block content %} {% endblock %}
+
+
+
+       
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+      <div class="copyright">
+      </div>
+      <div class="credits">
+      </div>
+    </footer><!-- End Footer -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="{% static 'dashboard/vendor/apexcharts/apexcharts.min.js' %}"></script>
+    <script src="{% static 'dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'dashboard/vendor/chart.js/chart.min.js' %}"></script>
+    <script src="{% static 'dashboard/vendor/echarts/echarts.min.js' %}"></script>
+    <script src="{% static 'dashboard/vendor/quill/quill.min.js' %}"></script>
+    <script src="{% static 'dashboard/vendor/simple-datatables/simple-datatables.js' %}"></script>
+    <script src="{% static 'dashboard/vendor/tinymce/tinymce.min.js' %}"></script>
+    <script src="{% static 'dashboard/vendor/php-email-form/validate.js' %}"></script>
+
+    <!-- Template Main JS File -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+
+
+    <script>
+      // sidebar notifications
+      const ref_bubble = document.getElementById('referral-count')
+      //const inbox_bubble = document.getElementById('inbox-count')
+
+      // top bar notifications
+      const unread_inbox = document.getElementById('unread-inbox')
+      const unread_inbox_bubble = document.getElementById('unread-inbox-bubble')
+
+      // profile photo
+      const profile_photo = document.getElementById('profile-photo')
+
+
+      // referral count
+      $.ajax({
+          type: 'GET',
+          url: "/accounts/ref-count/",
+          success: function(response){
+              const data = response.referral_count
+              if (data > 0) { // check if it's empty first
+                ref_bubble.innerHTML += data
+              }
+              },
+          error: function(error){
+              console.log('error', error)
+          }
+      })
+
+
+      // inbox count
+      $.ajax({
+          type: 'GET',
+          url: "/accounts/inbox-count/",
+          success: function(response){
+              const data = response.inbox_count
+              if (data > 0) { // check if it's empty first
+                unread_inbox_bubble.innerHTML += data
+              }
+              },
+          error: function(error){
+              console.log('error', error)
+          }
+      })
+
+
+
+    // profile photo
+    $.ajax({
+        type: 'GET',
+        url: "/accounts/profile-photo/",
+        success: function(response){
+            const data = response.profile_photo
+            profile_photo.src = data
+            },
+        error: function(error){
+            console.log('error', error)
+        }
+    })
+
+  
+
+
+      $.ajax({
+      type: 'GET',
+      url: "/accounts/unread-inbox/",
+      success: function(response){
+          const data = response.unread_inbox
+          data.forEach(el => {
+              unread_inbox.innerHTML += `
+                  <a href="/accounts/ticket/${el.ticket_id}/"
+                    <div class="content">
+                      <strong class="d-block">${el.subject}</strong><span class="d-block">${el.timestamp}</span>
+                    </div>
+                  </a>
+                  <br>
+                  <hr>
+              `
+          });
+      },
+      error: function(error){
+          console.log('error', error)
+      }
+  })
+
+
+
+  const request_link = document.getElementById('request_link');
+    const quote_link = document.getElementById('quote_link');
+
+    // profile type
+    $.ajax({
+      type: 'GET',
+      url: "/accounts/profile-type/",
+      success: function(response){
+          const data = response.profile_type
+          if (data == 'buyer'){
+            request_link.classList.remove("invisible");
+          } else {
+            quote_link.classList.remove("invisible");
+          }
+          },
+      error: function(error){
+          console.log('error', error)
+      }
+    })
+
+ 
+
+    </script>
+
+
+
+
+
+  </body>
+</html>

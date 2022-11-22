@@ -1,0 +1,53 @@
+{% extends 'adminarea/base.html' %}
+{% load static %}
+{% block title %} Marketplace | View User Profile {% endblock title %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<main id="main" class="main">
+<section class="section">
+  
+
+<div class="page-content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <h2 class="h5 mb-5">User Info</h2>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+        <img style="width:30%; border-radius:25px;" src="http://127.0.0.1:8000/media/{{profile.profile_photo}}"/>
+        <div class="col-md-6">
+            <ul>
+                <h4>{% if profile.buyer_account %}Buyer Account{% else %}Seller Account{% endif %}</h4>
+                <li><b>Username</b>: {{ profile.useralias }}</li>
+                <li><b>Email</b>: {{ profile.email }}</li>
+                <li><b>First</b>: {{ profile.first_name }}</li>
+                <li><b>Last</b>: {{ profile.last_name }}</li>
+                <li><b>Company name</b>: {{ profile.company_name }}</li>
+                <li><b>Address</b>:
+                    {{ profile.business_street_address }}
+                    {{ profile.business_street_address2 }}
+                    {{ profile.city }}, {{ profile.state }} {{ profile.zip_code }}</li>
+                <li><b>Phone</b>: {{ profile.company_phone_number }}</li>
+                {% if profile.selling %}
+                <li><b>Selling Options</b>:
+                    <ul> 
+                        {% for s in profile.selling.all %}
+                            <li>{{s.selling}}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %} </li>
+            </ul>
+        </div>
+    </div>
+    </div>
+</div>
+
+
+    
+</section>
+</main><!-- End #main -->
+ 
+{% endblock content %}

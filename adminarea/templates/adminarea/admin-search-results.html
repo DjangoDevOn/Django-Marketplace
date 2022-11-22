@@ -1,0 +1,63 @@
+{% extends 'adminarea/base.html' %}
+{% load static %}
+{% block title %} Marketplace | Admin Search Results {% endblock title %}
+{% block content %}
+
+
+<main id="main">
+  <!-- ======= Search Results Section ======= -->
+  <section>
+    <div class="container card p-5">
+
+      <div class="row">
+
+          {% if profiles %}
+          <h4>Profiles we found</h4>
+            {% for user in profiles %}
+              <div class="col-md-2 text-center">
+                  <h4 class="title">{{user.useralias}}</h4>
+                  <p>{{user.company_name}}</p>
+                  <a class="main-btn mt-3" href="{% url 'admin-edit-user' user.id %}">Details</a>
+              </div>
+            {% endfor %}
+          {% endif %}
+
+            </div>
+            <div class="mt-5 row">
+        
+          {% if quotes %}
+          <h4 class="text-center mb-4"4>Quotes we found</h4>
+            {% for quote in quotes %}
+          <div class="col-md-2 text-center">
+              <h4 class="title">{{quote.title}}</h4>
+              <p>{{quote.description}}</p>
+              <a class="main-btn mt-3" href="{% url 'quote-details' quote.id %}">Details</a>
+          </div>
+          {% endfor %}
+          {% endif %}
+
+
+          {% if requests %}
+          <h4>Requests we found</h4>
+            {% for request in requests %}
+          <div class="col-md-2 text-center">
+              <h4 class="title">{{request.title}}</h4>
+              <p>{{request.description}}</p>
+              <a class="main-btn mt-3" href="{% url 'request-details' request.id %}">Details</a>
+          </div>
+          {% endfor %}
+          {% endif %}
+        
+ 
+
+        </div>
+
+      </div>
+
+    </div>
+  </section><!-- End Search ResultsSection -->
+
+</main><!-- End #main -->
+
+
+{% endblock %}

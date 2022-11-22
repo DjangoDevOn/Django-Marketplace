@@ -1,0 +1,101 @@
+{% extends 'website/base.html' %}
+{% load static %}
+{% block title %} Marketplace | Signup {% endblock title %}
+{% block content %}
+
+<!--add to all css-->
+<style>
+    .col{
+        margin-top:1%;
+    }
+</style>
+
+
+<main id="main" class="main">
+    <section class="section">
+  
+
+<section id="services" class="services mt-5">
+        <div class="container text-center">
+
+            <div class="row">
+            <div class="col-lg-4 text-center" style="margin-left:33%;">
+                <div
+                class="box-element col"
+                id="form-wrapper">
+
+                    <form method="POST" action="{% url 'account-finish' %}">
+                        {% csrf_token %}
+                        <input type="text" name="account_type_field" class="invisible" id="acct_type"/>
+
+                        <!--USE JS TO REMOVE INVISIBLE CLASS DEPENDING ON VARIABLE-->
+                        <div id="selling_hide" class="col">
+                            <h4>What type of products are you selling?</h4>
+                            <div class="preference">
+                                <label for="electronics">Electronics</label>
+                                <input type="checkbox" name="electronics" id="electronics">
+                            </div>
+                            <div class="preference">
+                                <label for="camping">Camping</label>
+                                <input type="checkbox" name="camping" id="camping">
+                            </div>  
+                            <div class="preference">
+                                <label for="property">Property</label>
+                                <input type="checkbox" name="property" id="property">
+                            </div> 
+                            <div class="preference">
+                                <label for="sporting">Sporting</label>
+                                <input type="checkbox" name="sporting" id="sporting">
+                            </div> 
+                            <div class="preference">
+                                <label for="vehicles">Vehicles</label>
+                                <input type="checkbox" name="vehicles" id="vehicles">
+                            </div>  
+                            <div class="preference">
+                                <label for="gardening">Gardening</label>
+                                <input type="checkbox" name="gardening" id="gardening">
+                            </div> 
+                            <div class="preference">
+                                <label for="tools">Tools</label>
+                                <input type="checkbox" name="tools" id="tools">
+                            </div> 
+                            <div class="preference">
+                                <label for="household">Household</label>
+                                <input type="checkbox" name="household" id="household">
+                            </div>                           
+                        </div>
+
+                        <button style="margin-right:8%;" class="main-btn mt-3">Finish Setup</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+        </div>
+    </section>
+
+
+
+</section>
+</main><!-- End #main -->
+
+
+
+<script>
+    const account_type_field = document.getElementById('acct_type')
+    const account_type = localStorage.getItem('AccountType');
+    const selling_dropdown = document.getElementById('selling_hide')
+    console.log(account_type)
+
+    if (account_type != 'buyer'){
+        selling_dropdown.remove()
+    }
+
+    account_type_field.value = account_type
+    
+        
+</script>
+ 
+{% endblock content %}

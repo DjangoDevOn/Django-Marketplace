@@ -1,0 +1,63 @@
+{% extends 'marketplace/base.html' %}
+{% load static %}
+{% block title %} Marketplace | New Request {% endblock title %}
+{% block content %}
+{% load crispy_forms_tags %}
+<main id="main" class="main">
+
+        
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+
+       
+        <div class="col-md-6">
+          <div class="card p-5">
+            <div class="card-body">
+              <small class="text-dark">Request Details</small>
+              <hr>
+                <h1>{{request_details.title|title}}</h1> <br>
+                <h3>{{request_details.description}}</h3> <br>
+                <p><b>Quote Cap: {{request_details.maximum_quotes_desired}} quotes</b></p> <br>
+                <i><p>Needed By: <b>{{request_details.need_by_date}}</b><small> <br> Posted by <b>{{request_details.author}}</b></small></p></i> <br>
+                    {% if request_details.attachment %}
+                        {{request_details.attachment}} <br>
+                    {% endif %}
+                {% if request_details.author.user == user %}<a href="{% url 'edit-request' request_details.pk %}" class="main-btn pull-right"><i class="fa fa-pencil"></i> Edit Request</a>{% endif %}
+                <br><br>
+                <div class="mt-5 row">
+                    {% for attachment in attachments %}
+                        <div class="col-md-3">
+                            <a href="http://127.0.0.1:8000/media/{{attachment.attachment}}" target="_blank"><img style="width:85px; height:85px;" src="/media/{{attachment.attachment}}" /> <br></a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+          
+        </div>
+
+        <div class="col-md-6">
+          <div class="container">
+            <h2 class="my-4">Send a Quote Related Message</h2>
+            <form action="{% url 'send-msg-to-user' %}" method="POST">
+              {% csrf_token %}
+              <input type="text" name="quote_id" value="{{quote_id}}" style="display:none;"/>
+              <input type="text" name="quote_request_author_id" value="{{quote_request_author_id}}" style="display:none;"/>
+              <div class="row">
+                <div class="col-md-6">
+                  <textarea class="form-control" name="message" placeholder="Type your message..." rows="3" autofocus></textarea>
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="main-btn mt-3">Send</button>
+                </div>
+              </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+  </main>
+
+    {% endblock content %}
